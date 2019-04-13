@@ -1,0 +1,70 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>MealShare Service</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html">MealShare</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/">Login</a>
+                <a class="nav-item nav-link" href="signup.html">Sign Up</a>
+                <a class="nav-item nav-link disabled" href="#">Chat!</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container center-block">
+        <form>
+            <div class="form-group">
+                <label ref="code">Code:</label>
+                <input id="code" type="text" maxlength="20"/>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="window.MealShareApp.confirm()">Confirm</button>
+            <button type="button" class="btn btn-default" onclick="window.MealShareApp.resend()">Resend</button>
+        </form>
+    </div>
+
+    <!-- Required for Twitter Bootstrap -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Required for API Gateway SDK -->
+    <script type="text/javascript" src="js/lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="js/lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="js/apigClient.js"></script>
+    <script type="text/javascript" src="js/aws-sdk.min.js"></script>
+    <script type="text/javascript" src="js/amazon-cognito-identity.min.js"></script>
+    
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
+    <script type="text/javascript">
+        jQuery(function() {
+            jQuery('#code').focus();
+        });
+    </script>
+</body>
+
+</html>

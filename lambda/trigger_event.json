@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "triggerSource": "PostConfirmation_ConfirmSignUp",
+    "region": "us-east-1",
+    "userPoolId": "us-east-1_KT19Ovd41",
+    "userName": "murshed123",
+    "callerContext": 
+        {
+            "awsSdkVersion": "1234",
+            "clientId": "4c9g5qvd2u48aqc02cg754j9t2"
+        },
+    "request":
+        {
+            "userAttributes": {
+                "address": "35-31 63rd Street, Woodside, Queens 11377",
+                "given_name": "Murshed",
+                "family_name": "Ahmed",
+                "email": "murshed123@mailinator.com"
+            }
+        },
+    "response": {}
+}
+
+{
+	'version': '1',
+	'region': 'us-east-1',
+	'userPoolId': 'us-east-1_KT19Ovd41',
+	'userName': 'john3',
+	'callerContext': {
+		'awsSdkVersion': 'aws-sdk-unknown-unknown',
+		'clientId': '4c9g5qvd2u48aqc02cg754j9t2'
+	},
+	'triggerSource': 'PostConfirmation_ConfirmSignUp',
+	'request': {
+		'userAttributes': {
+			'sub': '014b9fb6-8b03-43df-9806-546b23430e68',
+			'address': 'columbia university',
+			'cognito:user_status': 'CONFIRMED',
+			'email_verified': 'true',
+			'cognito:email_alias': 'john3@mailinator.com',
+			'given_name': 'john3',
+			'family_name': 'john3',
+			'email': 'john3@mailinator.com'
+		}
+	},
+	'response': {}
+}
