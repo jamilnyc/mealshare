@@ -1,0 +1,11 @@
+{
+    "user_id": "john1",
+    "dietary_preferences": [
+        "Vegetarian",
+        "Nut Allergies"
+    ],
+    "price_range": 1,
+    "favorite_dish": "watermelon",
+    "cooking_ability": 1,
+    "dining_preference": "Pick Up"
+}
