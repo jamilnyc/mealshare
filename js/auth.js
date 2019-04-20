@@ -185,8 +185,9 @@ var MealShareApp = window.MealShareApp || {};
         var addressValue = jQuery('#address').val();
         var givenNameValue = jQuery('#given_name').val();
         var familyNameValue = jQuery('#family_name').val();
+        var phoneValue = jQuery('#phone').val();
         
-        if (!username || !password || !emailValue || !addressValue || !givenNameValue || !familyNameValue) {
+        if (!username || !password || !emailValue || !addressValue || !givenNameValue || !familyNameValue || !phoneValue) {
             alert('All fields are required!');
             return;
         }
@@ -195,6 +196,11 @@ var MealShareApp = window.MealShareApp || {};
         var email = new AmazonCognitoIdentity.CognitoUserAttribute({
             Name: 'email',
             Value: emailValue
+        });
+        
+        var phone = new AmazonCognitoIdentity.CognitoUserAttribute({
+            Name: 'phone_number',
+            Value: phoneValue
         });
         
         var address = new AmazonCognitoIdentity.CognitoUserAttribute({
@@ -212,7 +218,7 @@ var MealShareApp = window.MealShareApp || {};
             Value: familyNameValue
         });
         
-        var attributes = [email, address, givenName, familyName];
+        var attributes = [email, address, givenName, familyName, phone];
         MealShareApp.userPool.signUp(username, password, attributes, null, function (err, result) {
            if (err) {
                console.error(err);
