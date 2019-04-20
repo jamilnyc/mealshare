@@ -153,4 +153,53 @@ var MealShareApp = window.MealShareApp || {};
             });
         }); 
     };
+    
+    MealShareApp.createEvent = function(groupId, eventTimestamp, location, recipeName, eventName) {
+        MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
+            var bodyParams = {
+                'group_id': groupId,
+                'event_timestamp': eventTimestamp,
+                'location': location,
+                'recipe_name': recipeName, 
+                'event_name': eventName,
+                'op': 'create_event'
+            };
+
+            var newClientCredentials = MealShareApp.getNewClientCredentials()
+            MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
+            MealShareApp.apiClient.groupsPost({}, bodyParams, {}).then(function(result) {
+                // TODO: Check response structure
+                console.log(result)
+            }).catch(function(result) {
+                console.error('ERROR: Unable to load chat message');
+                console.log(result);
+                if (result.status === 401 || result.status === 403) {
+                    alert('You are not authorized to perform this action!');
+                }
+            });
+        }); 
+    };
+    
+    MealShareApp.getEvents = function(groupId, limit) {
+        MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
+            var bodyParams = {
+                'group_id': groupId,
+                'limit': limit,
+                'op': 'read_event'
+            };
+
+            var newClientCredentials = MealShareApp.getNewClientCredentials()
+            MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
+            MealShareApp.apiClient.groupsPost({}, bodyParams, {}).then(function(result) {
+                // TODO: Check response structure
+                console.log(result)
+            }).catch(function(result) {
+                console.error('ERROR: Unable to load chat message');
+                console.log(result);
+                if (result.status === 401 || result.status === 403) {
+                    alert('You are not authorized to perform this action!');
+                }
+            });
+        }); 
+    };
 })();
