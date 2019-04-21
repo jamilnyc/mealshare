@@ -39,7 +39,10 @@
             <input type="text" size="80" id="input-message" placeholder="Enter your message here" />
         </div>
     </div>
-
+    <br />
+    <input id="myInput" type="file" />
+    <img src="https://s3.amazonaws.com/dam-mealshare/avatars/x.jpg" />
+    
     <!-- Required for Twitter Bootstrap -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -78,6 +81,23 @@
             } else {
                 MealShareApp.getGroupDetails();
             }
+        });
+    </script>
+    
+    <script>
+        // Just an example of base64 uploads
+        jQuery('#myInput').on('change', function() {
+            console.log(this.files)
+            console.log(this.files[0])
+            if (this.files && this.files[0]) {
+                var fr = new FileReader();
+                fr.addEventListener("load", function(e) {
+                    base64 = e.target.result;
+                    clean_base64 = base64.split(',')[1];
+                    console.log(clean_base64)
+                });
+                fr.readAsDataURL(this.files[0])
+            } 
         });
     </script>
 </body>
