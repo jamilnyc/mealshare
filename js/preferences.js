@@ -24,6 +24,7 @@ var MealShareApp = window.MealShareApp || {};
         });
     };
     
+    
     MealShareApp.findPeople = function () {
         MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
             var bodyParams = {}

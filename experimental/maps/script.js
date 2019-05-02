@@ -48,4 +48,24 @@ var MealShareApp = window.MealShareApp || {};
             infoWindow.open(map, marker);
         });
     };
+    
+    MealShareApp.getDistances = function() {
+        var origins = ['Columbia University'];
+        var destinations = ['Washington Square Park'];
+        
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix({
+            origins: origins,
+            destinations: destinations,
+            travelMode: 'WALKING',
+            unitSystem: google.maps.UnitSystem.IMPERIAL
+        }, function (response, status) {
+            console.log(response);
+            console.log(status);
+        });
+    };
+    
+    MealShareApp.getLatitudeAndLongitude = function() {
+        var service =   
+    };
 })();
