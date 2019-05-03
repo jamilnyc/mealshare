@@ -223,4 +223,25 @@ var MealShareApp = window.MealShareApp || {};
             });
         }); 
     };
+    
+    MealShareApp.loadRecipes = function() {
+        MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
+            var bodyParams = {
+                'op': 'recommend'
+            };
+
+            var newClientCredentials = MealShareApp.getNewClientCredentials()
+            MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
+            MealShareApp.apiClient.recipesPost({}, bodyParams, {}).then(function(result) {
+                // TODO: Check response structure
+                console.log(result)
+            }).catch(function(result) {
+                console.error('ERROR: Unable to load chat message');
+                console.log(result);
+                if (result.status === 401 || result.status === 403) {
+                    alert('You are not authorized to perform this action!');
+                }
+            });
+        }); 
+    };
 })();

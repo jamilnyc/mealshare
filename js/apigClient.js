@@ -191,6 +191,42 @@ apigClientFactory.newClient = function (config) {
     };
     
     
+    apigClient.recipesPost = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var recipesPostRequest = {
+            verb: 'post'.toUpperCase(),
+            path: pathComponent + uritemplate('/recipes').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(recipesPostRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.recipesOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var recipesOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/recipes').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(recipesOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
     apigClient.userPreferencesPost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
