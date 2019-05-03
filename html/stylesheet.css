@@ -1,0 +1,219 @@
+.header h1 {
+	display: inline;
+}
+
+.header {
+	padding: 50px;
+}
+
+.secondary-color {
+	color: #595959;
+}
+
+.primary-color {
+	color: #5EBA79;
+}
+
+#login-container {
+	background-color: white;
+	width: 25%;
+	text-align: center;
+	margin: auto;
+}
+
+#login-form input[type=text], input[type=password] {
+	width: 66%;
+	padding: 5px;
+}
+
+#login-form div {
+	padding: 5px;
+}
+
+.login-signup-submit-btn {
+	background-color: #5EBA79;
+	width: 66%;
+	padding: 5px;
+}
+
+.buffer {
+	padding: 5px;
+}
+
+.signup-login-link-container {
+	background-color: white;
+	width: 25%;
+	text-align: center;
+	margin: auto;
+}
+
+.signup-login-link-container div {
+	padding: 15px;
+}
+
+#signup-container {
+	background-color: white;
+	width: 25%;
+	text-align: center;
+	margin: auto;
+}
+
+#signup-form input[type=text], input[type=password] {
+	width: 66%;
+	padding: 5px;
+}
+
+#signup-form div {
+	padding: 5px;
+}
+
+.nav-bar {
+	background-color: #5EBA79;
+	width: 100%;
+}
+
+
+.inline div {
+	display: inline-block;
+}
+
+#group-container {
+	width: 100%;
+	height: 80%;
+}
+
+#group-info {
+	width: 69%;
+	height: 500px;
+	float: left;
+}
+
+#chat {
+	width: 29%;
+	float: left;
+}
+
+#chat-display {
+	width: 90%;
+}
+
+#chat-text {
+	width: 90%;
+}
+
+.search-bar {
+	width: 28.5%;
+	text-align: center;
+}
+
+.logo {
+	width: 40%;
+	text-align: center;
+}
+
+.path-icons img {
+	width: 15%;
+}
+
+.path-icons {
+	text-align: right;
+	width: 28.5%;
+}
+
+#group-header {
+	width: 100%;
+}
+
+#group-name {
+	width: 50%;
+	text-align: center;
+}
+
+#group-settings {
+	width: 48%;
+	text-align: right;
+}
+
+#group-settings img {
+	width: 5%;
+}
+
+#next-meal {
+	width: 100%;
+	vertical-align: top;
+}
+
+#next-meal-info {
+	text-align: center;
+	float: left;
+	width: 40%;
+}
+
+#next-meal-map {
+	width: 58%;
+	float: left;
+	text-align: center;
+}
+
+#next-meal-map img {
+	width: 75%;
+}
+
+#rec-container {
+	width: 100%;
+}
+
+#ppl-rec {
+	width: 40%;
+	text-align: solid;
+}
+
+.person {
+	width: 30%;
+}
+
+.person img {
+	width: 30%;
+}
+
+.recipe {
+	width: 30%;
+}
+
+.recipe img {
+	width: 30%;
+}
+
+#recipe-rec {
+	width: 43%;
+}
+
+.margin-buffer {
+	width: 15%;
+}
+
+#message-container {
+	width: 95%;
+	height: 60vh;
+	text-align: center;
+}
+
+.msg-group {
+	overflow-y: auto;  /*if the content beyond width and height, use the scrollbar*/
+}
+
+.input-group {
+    height: 10vh;
+    width: 95%;   
+    text-align: center;
+}
+
+
+
+body {
+	background-color: #F5F5F5;
+	padding: 0px;
+	margin: 0px;
+}
+
+
