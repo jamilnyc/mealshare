@@ -1,47 +1,37 @@
 <!doctype html>
-
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>MealShare Service</title>
-
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<title> MealShare - Login </title>
+	<link rel="stylesheet" href="css/stylesheet.css">
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="index.html">MealShare</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link disabled" href="/">Login</a>
-                <a class="nav-item nav-link" href="/signup.html">Sign Up</a>
-                <a class="nav-item nav-link" href="/chat.html">Chat!</a>
-            </div>
-        </div>
-    </nav>
+	<div id="login-container">
+		<div class="header">
+			<h1 class="secondary-color">meal</h1>
+			<h1 class="primary-color">Share</h1>
+		</div>
+		<div>
+			<form id="login-form">
+				<div>
+					<input type="text" id="username" placeholder="username"> 
+				</div>
+				<div>
+					<input type="password" id="password" placeholder="password">
+				</div>
+			</form>
+		</div>
+		<div class="buffer">
+			<input type="button" class="login-signup-submit-btn" value="Login" onclick="window.MealShareApp.login()"> 
+		</div>
+		<br>
+	</div>
+	<br>
+	<div class="signup-login-link-container" >
+		<div>
+			Don't have an account? <a href="/signup.html">Sign up</a>
+		</div>
+	</div>
     
-    <!-- Login Form -->
-    <div class="container center-block">
-        <form>
-            <div class="form-group">
-                <label ref="username">Username:</label>
-                <input id="username" type="text" maxlength="20"/>
-            </div>
-            <div class="form-group">
-                <label ref="password">Password:</label>
-                <input id="password" type="password" maxlength="20"/>
-            </div>
-            <button type="button" class="btn btn-primary" onclick="window.MealShareApp.login()">Login</button>
-            <button type="button" class="btn btn-default" onclick="window.location='/signup.html'">Sign Up</button>
-        </form>
-    </div>
-
     <!-- Required for Twitter Bootstrap -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -88,5 +78,4 @@
         });
     </script>
 </body>
-
 </html>

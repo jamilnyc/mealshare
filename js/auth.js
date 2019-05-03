@@ -107,7 +107,7 @@ var MealShareApp = window.MealShareApp || {};
         if (cognitoUser !== null) {
             if (redirectOnRec) {
                 // Valid user is logged in, take them to the chat page
-                window.location = '/chat.html';
+                window.location = '/home.html';
             }
         } else {
             if (redirectOnUnrec) {
