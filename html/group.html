@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+	<title> Group </title>
+	<link rel="stylesheet" href="stylesheet.css">
+	<script type="text/javascript" src="../js/chat.js"></script>
+</head>
+<body>
+	<div class="nav-bar inline">
+		<div class="search-bar">
+			<input type="text" placeholder="Search">
+			<input type="button" value="Go!">
+		</div>
+		<div class="logo">
+			<h1>mealShare</h1>
+		</div>
+		<div class="path-icons">
+			<img src="img/notavail.png" onclick="location.href='#'">
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+		</div>
+	</div>
+	<br>
+	<div id="group-container" class="inline">
+		<div id="group-info">
+			<div id="group-header">
+				<div id="group-name">
+					<h3>Group Name</h3>
+				</div>
+				<div id="group-settings">
+					<img src="img/notavail.png">
+				</div>
+			</div>
+			<div id="next-meal" class="inline">
+				<div id="next-meal-info">
+					<p>Next Meal</p>
+					<p>Date</p>
+					<p>Time</p>
+					<p>Location</p>
+				</div>
+				<div id="next-meal-map">
+					<img src="img/notavail.png">
+				</div>
+				<div id="rec-container" class="inline">
+					<div class="margin-buffer">
+					</div>
+					<div id="ppl-rec" class="inline">
+						<h5> Recommended People </h5>
+						<div class="person">
+							<p> Name </p>
+							<img src="img/notavail.png">
+						</div>
+						<div class="person">
+							<p> Name </p>
+							<img src="img/notavail.png">
+						</div>
+						<div class="person">
+							<p> Name </p>
+							<img src="img/notavail.png">
+						</div>
+					</div>
+					<div id="recipe-rec" class="inline">
+						<h5>Recommended Recipes</h5>
+						<div class="recipe">
+							<p> Name </p>
+							<img src="img/notavail.png">
+						</div>
+						<div class="recipe">
+							<p> Name </p>
+							<img src="img/notavail.png">
+						</div>
+						<div class="recipe">
+							<p> Name </p>
+							<img src="img/notavail.png">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="chat">
+			<h1>Messages</h1>
+    		<div id="message-container">
+    			<div class="msg-group">
+    			</div>
+   			</div> 	
+   			<div class="input-group">
+        		<textarea id="userInput" class="form-control" rows="1" placeholder="Chat here . . ."></textarea>
+        		<span class="input-group-btn">
+            		<button class="btn btn-secondary" type="button" id="sendButton">SEND</button>
+        		</span>
+   		    </div>		
+    	</div> 
+	</div>
+</body>
+</html>
