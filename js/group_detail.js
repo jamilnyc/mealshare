@@ -1,6 +1,8 @@
 var MealShareApp = window.MealShareApp || {};
 
 (function scopeWrapper($) {
+    MealShareApp.messageContainer = jQuery('.msg-group');
+
     MealShareApp.getCurrentGroupId = function() {
         var urlParams = new URLSearchParams(window.location.search);
         var groupId = urlParams.get('groupId');
@@ -96,7 +98,11 @@ var MealShareApp = window.MealShareApp || {};
     MealShareApp.populateRecentMessages = function(recentMessages) {
         if (recentMessages && recentMessages.length > 0) {
             recentMessages.forEach(function(message) {
-               console.log(message.user_id + ' ' + message.message_timestamp + ': ' + message.message_body);
+                var date = new Date(message.message_timestamp * 1000)
+                var dateString = date.toLocaleDateString('default') + ' @ ' + date.toLocaleTimeString('default');
+                var messageContent = message.user_id + ' ' + dateString + ': ' + message.message_body;
+                console.log(messageContent);
+                MealShareApp.messageContainer.prepend("<p>" + messageContent + "</p>");
             });
         }
     };
@@ -123,7 +129,11 @@ var MealShareApp = window.MealShareApp || {};
             MealShareApp.apiClient.groupChatPost(requestParams, bodyParams, requestParams).then(function(result) {
                 // TODO: Check response structure
                 console.log(result)
-
+                var message = result.data.message;
+                var date = new Date(message.message_timestamp * 1000)
+                var dateString = date.toLocaleDateString('default') + ' @ ' + date.toLocaleTimeString('default');
+                var messageContent = message.user_id + ' ' + dateString + ': ' + message.message_body;
+                MealShareApp.messageContainer.append("<p>" + messageContent + "</p>");
             }).catch(function(result) {
                 console.error('ERROR: Unable to load chat message');
                 console.log(result);
@@ -166,14 +176,14 @@ var MealShareApp = window.MealShareApp || {};
             })
         });
     };
-
-    MealShareApp.loadNextMeetingMap = function() {
-
-    };
     
 })($);
 
-jQuery('.avatar').on('error', function() {
-    console.log('replacing image');
-    jQuery(this).attr('src', '/img/notavail.png');
+
+jQuery(function() {
+    jQuery('#sendButton').on('click', function() {
+        var message = jQuery('#userInput').val();
+        jQuery('#userInput').val('');
+        MealShareApp.addGroupMessage(message);
+    });
 });
