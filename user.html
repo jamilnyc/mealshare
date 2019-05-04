@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<title> User </title>
+	<link rel="stylesheet" href="css/stylesheet.css">
+	<script type="text/javascript" src="/js/chat.js"></script>
+</head>
+<body>
+
+
+	<!--Put the HTML structure of the page here -->
+
+    <!-- Required for Twitter Bootstrap -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+
+    <!-- Required for API Gateway SDK -->
+    <script type="text/javascript" src="js/lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="js/lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="js/apigClient.js"></script>
+    <script type="text/javascript" src="js/aws-sdk.min.js"></script>
+    <script type="text/javascript" src="js/amazon-cognito-identity.min.js"></script>
+    
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
+    <script type="text/javascript" src="js/preferences.js"></script>
+    <script type="text/javascript" src="js/users.js"></script>
+    
+    <script type="application/javascript">
+        jQuery(function() {
+        	var userId = MealShareApp.getUserIdFromUrl();
+            MealShareApp.getUserDetails(userId);
+        });
+    </script>
+</body>
+</html>
