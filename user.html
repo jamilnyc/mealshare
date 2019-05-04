@@ -2,13 +2,17 @@
 <html>
 <head>
 	<title> User </title>
-	<link rel="stylesheet" href="css/stylesheet.css">
-	<script type="text/javascript" src="/js/chat.js"></script>
+	<link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 <body>
 
 
 	<!--Put the HTML structure of the page here -->
+
+	<div id="avatar-container">
+		<input id="avatar-file-input" type="file" />
+		<button id="avatar-file-upload-button">Upload Avatar</button>
+	</div>
 
     <!-- Required for Twitter Bootstrap -->
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -31,14 +35,42 @@
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/auth.js"></script>
-    <script type="text/javascript" src="js/preferences.js"></script>
     <script type="text/javascript" src="js/users.js"></script>
+    <script type="text/javascript" src="js/preferences.js"></script>
     
     <script type="application/javascript">
         jQuery(function() {
         	var userId = MealShareApp.getUserIdFromUrl();
             MealShareApp.getUserDetails(userId);
         });
+
+        jQuery('#avatar-file-input').on('change', function() {
+		    if (this.files && this.files[0]) {
+		        var fr = new FileReader();
+		        fr.addEventListener("load", function(e) {
+		            base64 = e.target.result;
+		            clean_base64 = base64.split(',')[1];
+		            MealShareApp.uploadedImageData = clean_base64;
+		        });
+		        fr.readAsDataURL(this.files[0])
+		    } 
+		});
+
+		jQuery('#avatar-file-upload-button').on('click', function() {
+		    MealShareApp.uploadImage();
+		    jQuery('#avatar-file-input').val('');
+		});
+
+		jQuery('#avatar-file-input').val('');
+
+		// Show the upload form only if the user is the current one
+		jQuery(function() {
+		    var loggedInUser = MealShareApp.getCurrentUserName();
+		    var viewedUser = MealShareApp.getUserIdFromUrl();
+		    if (loggedInUser == viewedUser) {
+		    	jQuery('#avatar-container').show();
+		    }
+		});
     </script>
 </body>
 </html>

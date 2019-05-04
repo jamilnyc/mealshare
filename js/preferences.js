@@ -1,6 +1,8 @@
 var MealShareApp = window.MealShareApp || {};
 
 (function scopeWrapper($) {
+    MealShareApp.uploadedImageData = null;
+
     MealShareApp.updatePreferences = function(preferences) {
         MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
             var bodyParams = preferences
@@ -48,11 +50,16 @@ var MealShareApp = window.MealShareApp || {};
         });
     };
     
-    MealShareApp.uploadImage = function(encodedImage) {
+    MealShareApp.uploadImage = function() {
+        if (!MealShareApp.uploadedImageData) {
+            alert('Please select an image first');
+            return;
+        }
+
         MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
             var bodyParams = {
                 'op': 'avatar',
-                'encoded_image': encodedImage
+                'encoded_image': MealShareApp.uploadedImageData
             }
             var requestParams = {}
 
@@ -62,7 +69,9 @@ var MealShareApp = window.MealShareApp || {};
             MealShareApp.apiClient.userPreferencesPost(requestParams, bodyParams, requestParams).then(function(result) {
                 // TODO: Check response structure
                 console.log(result)
-
+                if (result.data.statusCode == 200) {
+                    alert('Upload successful');
+                }
             }).catch(function(result) {
                 console.error('ERROR: Unable to load chat message');
                 console.log(result);

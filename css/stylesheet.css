@@ -222,3 +222,11 @@ body {
     height: 400px;
     width: 58%;
 }
+
+img.avatar {
+	width: 200px;
+}
+
+#avatar-container {
+	display: none;
+}
