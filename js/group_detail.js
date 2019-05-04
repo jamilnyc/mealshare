@@ -80,7 +80,9 @@ var MealShareApp = window.MealShareApp || {};
                         jQuery('#recipe-rec').append('<h5>Recommended Recipes</h5>');
                         data.recipes.forEach(function(recipe) {
                             var imgSrc = recipe.image;
-                            var element = '<div class="recipe"><p>' + recipe.title + '</p><img src="' + imgSrc + '"></div>';
+                            var url = '/recipe.html?recipeId=' + recipe.id;
+                            var element = '<div class="recipe"><p>' + recipe.title + 
+                                '<a href="' + url + '"></p><img src="' + imgSrc + '"></a></div>';
                             jQuery('#recipe-rec').append(element);
                         });
                     }
