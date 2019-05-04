@@ -44,8 +44,12 @@ var MealShareApp = window.MealShareApp || {};
                     jQuery('#next-meal-time').text(date.toLocaleTimeString('default'));
                     jQuery('#next-meal-location').text(event.location);
                     jQuery('#next-meal-food').text('Food: ' + event.recipe_name);
+
+                    // Load Event Map
+                    MealShareApp.initializeMap('next-meal-map', event.event_name, event.location);
                 }
-                
+
+
                 // Load Members
                 var members = result.data.group_data.members;
                 if (members && members.length > 0) {
@@ -78,6 +82,7 @@ var MealShareApp = window.MealShareApp || {};
                     }
                 };
                 MealShareApp.loadRecipes(callback);
+
                 
             }).catch(function(result) {
                 console.log(result);
@@ -94,7 +99,77 @@ var MealShareApp = window.MealShareApp || {};
                console.log(message.user_id + ' ' + message.message_timestamp + ': ' + message.message_body);
             });
         }
-    }
+    };
+    
+    MealShareApp.addGroupMessage = function(newMessage) {
+        var groupId = MealShareApp.getCurrentGroupId();
+        if (groupId == null) {
+            console.error('No group ID found, can not add message');
+            return;
+        }
+        
+        MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
+            var username = MealShareApp.getCurrentUserName();
+            var bodyParams = {
+                'group_id': groupId,
+                'op': 'write',
+                'message': newMessage
+            };
+            var requestParams = {}
+
+            var newClientCredentials = MealShareApp.getNewClientCredentials()
+            MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
+            
+            MealShareApp.apiClient.groupChatPost(requestParams, bodyParams, requestParams).then(function(result) {
+                // TODO: Check response structure
+                console.log(result)
+
+            }).catch(function(result) {
+                console.error('ERROR: Unable to load chat message');
+                console.log(result);
+                if (result.status === 401 || result.status === 403) {
+                    alert('You are not authorized to perform this action!');
+                }
+            })
+        });
+    };
+    
+    MealShareApp.getGroupMessages = function() {
+        var groupId = MealShareApp.getCurrentGroupId();
+        if (groupId == null) {
+            console.error('No group ID found, can not load chats');
+            return;
+        }
+        
+        MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
+            var username = MealShareApp.getCurrentUserName();
+            var bodyParams = {
+                'group_id': groupId,
+                'op': 'read'
+            };
+            var requestParams = bodyParams;
+            console.log(requestParams);
+
+            console.log('New client');
+            var newClientCredentials = MealShareApp.getNewClientCredentials()
+            MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
+            
+            MealShareApp.apiClient.groupChatPost(requestParams, bodyParams, requestParams).then(function(result) {
+                // TODO: Check response structure
+                console.log(result)
+            }).catch(function(result) {
+                console.error('ERROR: Unable to load chat message');
+                console.log(result);
+                if (result.status === 401 || result.status === 403) {
+                    alert('You are not authorized to perform this action!');
+                }
+            })
+        });
+    };
+
+    MealShareApp.loadNextMeetingMap = function() {
+
+    };
     
 })($);
 
