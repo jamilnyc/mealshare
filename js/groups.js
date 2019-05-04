@@ -20,21 +20,42 @@ var MealShareApp = window.MealShareApp || {};
     
     MealShareApp.getGroupDetails = function() {
         // Get group_id from URL
-        var groupId = location.hash.substring(1);
+        groupId = MealShareApp.getCurrentGroupId();
+        if (!groupId) {
+            alert('Invalid Group ID detected!');
+            window.location = '/home.html';
+            return;
+        }
         
-        // Make request to get group details
-        
-        // Print group details to the page
-        
-        // If the user is not part of the group, they are denied access
-        jQuery('#group-message-container').show();
+        MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
+            var bodyParams = {
+                'op': 'details',
+                'group_id': groupId
+            };
+
+            var newClientCredentials = MealShareApp.getNewClientCredentials()
+            MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
+            MealShareApp.apiClient.groupsPost({}, bodyParams, {}).then(function(result) {
+                console.log(result);
+                // TODO: Error checking
+                
+                // Load Group Name
+                var groupName = result.data.group_data.group_name;
+                $('#group-name h3').text(groupName);
+                
+            }).catch(function(result) {
+                console.log(result);
+                if (result.status === 401 || result.status === 403) {
+                    alert('You are not authorized to perform this action!');
+                }
+            });
+        }); 
     };
     
     MealShareApp.getCurrentGroupId = function() {
-        var groupId = location.hash.substring(1);
-        if (groupId == null || groupId == '') {
-            return null;
-        }
+        var urlParams = new URLSearchParams(window.location.search);
+        var groupId = urlParams.get('groupId');
+        console.log('Group ID: ' + groupId);
         return groupId;
     };
     
@@ -180,7 +201,7 @@ var MealShareApp = window.MealShareApp || {};
         }); 
     };
     
-    MealShareApp.getEvents = function(groupId, limit) {
+    MealShareApp.getEvents = function(groupId, limit, callback) {
         MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
             var bodyParams = {
                 'group_id': groupId,
@@ -193,6 +214,9 @@ var MealShareApp = window.MealShareApp || {};
             MealShareApp.apiClient.groupsPost({}, bodyParams, {}).then(function(result) {
                 // TODO: Check response structure
                 console.log(result)
+                if (callback) {
+                    callback(result);
+                }
             }).catch(function(result) {
                 console.error('ERROR: Unable to load chat message');
                 console.log(result);
@@ -224,10 +248,11 @@ var MealShareApp = window.MealShareApp || {};
         }); 
     };
     
-    MealShareApp.loadRecipes = function() {
+    MealShareApp.loadRecipes = function(callback) {
         MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
             var bodyParams = {
-                'op': 'recommend'
+                'op': 'recommend',
+                'limit': 3
             };
 
             var newClientCredentials = MealShareApp.getNewClientCredentials()
@@ -235,8 +260,11 @@ var MealShareApp = window.MealShareApp || {};
             MealShareApp.apiClient.recipesPost({}, bodyParams, {}).then(function(result) {
                 // TODO: Check response structure
                 console.log(result)
+                if(callback) {
+                    callback(result.data);
+                }
             }).catch(function(result) {
-                console.error('ERROR: Unable to load chat message');
+                console.error('ERROR: Unable to load recipes');
                 console.log(result);
                 if (result.status === 401 || result.status === 403) {
                     alert('You are not authorized to perform this action!');
@@ -244,4 +272,4 @@ var MealShareApp = window.MealShareApp || {};
             });
         }); 
     };
-})();
+})($);
