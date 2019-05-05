@@ -96,12 +96,24 @@
    		    </div>		
     	</div> 
 	</div>
+
+	<div>
+		<!-- Form for adding members -->
+		<input type="text" id="add-member-name" placeholder="Member ID to add"><br>
+		<button id="add-member-button">Add Member</button>
+	</div>
+	<br><br>
+	<div>
+		<!-- Form for creating events -->
+		<input type="number" placeholder="Event Date/Time" id="create-event-timestamp"><br>
+		<input type="text" placeholder="Event Name (optional)" id="create-event-name"><br>
+		<input type="text" placeholder="Event Location" id="create-event-location"><br>
+		<input type="text" placeholder="Food" id="create-event-food"><br>
+		<button id="create-event-button">Create Event</button>
+	</div>
     
     
-    <!-- Required for Twitter Bootstrap -->
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
 
     <!-- Required for API Gateway SDK -->
     <script type="text/javascript" src="js/lib/axios/dist/axios.standalone.js"></script>

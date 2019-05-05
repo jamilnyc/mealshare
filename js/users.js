@@ -2,6 +2,11 @@ var MealShareApp = window.MealShareApp || {};
 
 (function scopeWrapper($) {
     MealShareApp.getUserDetails = function(userId) {
+        if (!userId) {
+            alert('Invalid User ID, can not load data');
+            return;
+        }
+
         MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
             var bodyParams = {
                 'op': 'read',
@@ -36,6 +41,29 @@ var MealShareApp = window.MealShareApp || {};
         jQuery('body').append('<h1>' + fullName + '</h1>');
         var imgSrc = "https://s3.amazonaws.com/dam-mealshare/avatars/" + userId + ".jpg";
         jQuery('body').append('<img class="avatar" src=' + imgSrc + ' />');
+    };
+
+
+    // Used on the home page
+    MealShareApp.getUserDetailsHome = function() {
+        MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
+            var bodyParams = {
+                'op': 'home'
+            };
+
+            var newClientCredentials = MealShareApp.getNewClientCredentials()
+            MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
+            MealShareApp.apiClient.usersPost({}, bodyParams, {}).then(function(result) {
+                console.log(result.data)
+                
+            }).catch(function(result) {
+                console.error('ERROR: Unable to load user data');
+                console.log(result);
+                if (result.status === 401 || result.status === 403) {
+                    alert('You are not authorized to perform this action!');
+                }
+            });
+        }); 
     };
 
 })();
