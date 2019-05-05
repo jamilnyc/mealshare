@@ -1,0 +1,362 @@
+.header h1 {
+	display: inline;
+}
+
+.header {
+	padding: 50px;
+}
+
+.secondary-color {
+	color: #595959;
+}
+
+.primary-color {
+	color: #5EBA79;
+}
+
+#login-container {
+	background-color: white;
+	width: 25%;
+	text-align: center;
+	margin: auto;
+}
+
+#login-form input[type=text], input[type=password] {
+	width: 66%;
+	padding: 5px;
+}
+
+#login-form div {
+	padding: 5px;
+}
+
+.login-signup-submit-btn {
+	background-color: #5EBA79;
+	width: 66%;
+	padding: 5px;
+}
+
+.buffer {
+	padding: 5px;
+}
+
+.signup-login-link-container {
+	background-color: white;
+	width: 25%;
+	text-align: center;
+	margin: auto;
+}
+
+.signup-login-link-container div {
+	padding: 15px;
+}
+
+#signup-container {
+	background-color: white;
+	width: 25%;
+	text-align: center;
+	margin: auto;
+}
+
+#signup-form input[type=text], input[type=password] {
+	width: 66%;
+	padding: 5px;
+}
+
+#signup-form div {
+	padding: 5px;
+}
+
+.nav-bar {
+	background-color: #5EBA79;
+	width: 100%;
+}
+
+
+.inline div {
+	display: inline-block;
+}
+
+#group-container {
+	width: 100%;
+	height: 80%;
+}
+
+#group-info {
+	width: 69%;
+	height: 500px;
+	float: left;
+}
+
+#chat {
+	width: 29%;
+	float: left;
+}
+
+#chat-display {
+	width: 90%;
+}
+
+#chat-text {
+	width: 90%;
+}
+
+.search-bar {
+	width: 28.5%;
+	text-align: center;
+}
+
+.logo {
+	width: 40%;
+	text-align: center;
+}
+
+.path-icons img {
+	width: 15%;
+}
+
+.path-icons {
+	text-align: right;
+	width: 28.5%;
+}
+
+#group-header {
+	width: 100%;
+}
+
+#group-name {
+	width: 50%;
+	text-align: center;
+}
+
+#group-settings {
+	width: 48%;
+	text-align: right;
+}
+
+#group-settings img {
+	width: 5%;
+}
+
+#next-meal {
+	width: 100%;
+	vertical-align: top;
+}
+
+#next-meal-info {
+	text-align: center;
+	float: left;
+	width: 40%;
+}
+
+#next-meal-map {
+	width: 58%;
+	float: left;
+	text-align: center;
+}
+
+#next-meal-map img {
+	width: 75%;
+}
+
+#rec-container {
+	width: 100%;
+}
+
+#ppl-rec {
+	width: 40%;
+	text-align: solid;
+}
+
+.person {
+	width: 30%;
+}
+
+.person img {
+	width: 30%;
+}
+
+.recipe {
+	width: 30%;
+}
+
+.recipe img {
+	width: 30%;
+}
+
+#recipe-rec {
+	width: 43%;
+}
+
+.margin-buffer {
+	width: 10%;
+}
+
+#message-container {
+	width: 95%;
+	height: 60vh;
+	text-align: center;
+}
+
+.msg-group {
+	overflow-y: auto;  /*if the content beyond width and height, use the scrollbar*/
+}
+
+.input-group {
+    height: 10vh;
+    width: 95%;   
+    text-align: center;
+}
+
+#home-left {
+	width: 35%;
+}
+
+#home-map {
+	width: 100%;
+	text-align: center;
+}
+
+#home-map img {
+	width: 65%;
+}
+
+#home-right {
+	float: right;
+	width: 50%;
+}
+
+#home-avail th, td {
+	border-style: solid;
+	width: 10%;
+}
+
+#home-avail td {
+	height: 10vh;
+	text-align: left;
+	vertical-align: top;
+}
+
+#home-avail {
+	border-style: solid;
+	width: 100%;
+}
+
+#home-avail-container {
+	width: 90%;
+}
+
+.group-row {
+	width: 100%;
+}
+
+.group {
+	width: 20%;
+}
+
+.group img {
+	width: 50%;
+}
+
+#groups-groups {
+	text-align: center;
+}
+
+#pref-left {
+	width: 48%;
+	float: left;
+}
+
+#pref-right {
+	width: 50%;
+	float: left;
+}
+
+#pref-edit-option {
+	width: 95%;
+	float: left;
+	text-align: center;
+}
+
+.dollar-sign {
+	width: 15%;
+}
+
+#dollar-signs {
+	width: 100%;
+	text-align: center;
+}
+
+#price-range {
+	width: 100%;
+}
+
+#favorite-dish {
+	width: 100%;
+}
+
+#cooking-ability {
+	width: 100%;
+}
+
+#dining-pref {
+	width: 100%;
+}
+
+#cal-left {
+	width: 60%;
+	float: left;
+}
+
+#cal-right {
+	width: 38%;
+	float: left;
+}
+
+#cal-group {
+	width: 40%;
+}
+
+#cal-group img {
+	width: 90%;
+}
+
+#map-food-container {
+	width: 90%;
+}
+
+#cal-map {
+	width: 45%;
+	padding-right: 5px;
+}
+
+#cal-map img {
+	width: 50%;
+}
+
+#cal-meal {
+	width: 40%;
+}
+
+#cal-meal img {
+	width: 90%;
+}
+
+#recipe-left {
+	width: 48%;
+	float: left;
+}
+
+#recipe-right {
+	width: 50%;
+	float: right;
+}
+
+
+body {
+	background-color: #F5F5F5;
+	padding: 0px;
+	margin: 0px;
+}
+
+

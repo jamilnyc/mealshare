@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+	<title> Preferences </title>
+	<link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+	<div class="nav-bar inline">
+		<div class="search-bar">
+			<input type="text" placeholder="Search">
+			<input type="button" value="Go!">
+		</div>
+		<div class="logo">
+			<h1>mealShare</h1>
+		</div>
+		<div class="path-icons">
+			<img src="img/notavail.png" onclick="location.href='#'">
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+		</div>
+	</div>
+	<div id="preferences" class="inline">
+		<div id="pref-left">
+			<div id="home-avail-container">
+				<h3>Weekly Availability</h3>
+				<table id="home-avail">
+					<tr>
+						<th>Sun</th>
+						<th>Mon</th>
+						<th>Tue</th>
+						<th>Wed</th>
+						<th>Thu</th>
+						<th>Fri</th>
+						<th>Sat</th>
+					</tr>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+				</table>
+			</div>
+			<br>
+			<div id="dietary-pref">
+				<h3>Dietary Preferences</h3>
+				<input type="checkbox"> Vegan
+			</div>
+			<br>
+			<div id="price-range">
+				<h3>Price Per Meal</h3>
+				<div id="dollar-signs" class="inline">
+					<div class="dollar-sign">
+						<p>$</p>
+					</div>
+					<div class="dollar-sign">
+						<p>$</p>
+					</div>
+					<div class="dollar-sign">
+						<p>$</p>
+					</div>
+					<div class="dollar-sign">
+						<p>$</p>
+					</div>
+					<div class="dollar-sign">
+						<p>$</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="pref-right">
+			<div id="favorite-dish">
+				<h3>Favorite Dish</h3>
+			</div> 
+			<div id="cooking-ability">
+				<h3>Cooking Ability</h3>
+			</div>
+			<div id="dining-pref">
+				<h3>Dining Preference</h3>
+			</div>
+		</div>
+	</div>
+	<div id="pref-edit-option">
+		<button>Edit</button>
+	</div>
+</body>
+</html>
