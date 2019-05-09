@@ -18,7 +18,7 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             var newClientCredentials = MealShareApp.getNewClientCredentials()
             MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
             MealShareApp.apiClient.usersPost({}, bodyParams, {}).then(function(result) {
-		console.log(result.data);		
+        console.log(result.data);       
                 MealShareApp.loadUserDetailsFromResponse(result.data); 
            }).catch(function(result) {
                 console.error('ERROR: Unable to load user data');
@@ -56,10 +56,10 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             var newClientCredentials = MealShareApp.getNewClientCredentials()
             MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
             MealShareApp.apiClient.usersPost({}, bodyParams, {}).then(function(result) {
-		console.log(result.data);                
-		
-		//event
-		var events = result.data.events;
+        console.log(result.data);                
+        
+        //event
+        var events = result.data.events;
                 if (events.length > 0) {
                     console.log('Loading Event'); 
                     var event = events[0];
@@ -74,40 +74,43 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                     MealShareApp.initializeMap('home-map', event.event_name, event.location);
                 }
 
-		var groupId = events[0].group_id;
-		var groups = result.data.groups;
-		console.log(groups[0].group_name);
-		for (var i=0; i < groups.length; i++) {
-		    if (groups[i].group_id == groupId) {
-		   	jQuery('#next-meal-group').text(groups[i].group_name);
-		    }	
-		}
+        var groupId = events[0].group_id;
+        var groups = result.data.groups;
+        console.log(groups[0].group_name);
+        for (var i=0; i < groups.length; i++) {
+            if (groups[i].group_id == groupId) {
+            jQuery('#next-meal-group').text(groups[i].group_name);
+            }   
+        }
 
-		//availability 
-		var d = new Date();
-		jQuery('#availability-month').text(mS[d.getMonth()])	
-		for (var i=0; i < daysInWeek.length; i++) {		   
-		    var header = '#h-day-'+ (i+1);
-		    var cell = '#d-day-'+ (i+1);
-		    jQuery(header).text(daysInWeek[(d.getDay() % 7)]);
-		    jQuery(cell).text(d.getDate());
-		    d.setDate(d.getDate() + 1);
-		}
+        //availability 
+        var d = new Date();
+        jQuery('#availability-month').text(mS[d.getMonth()])    
+        for (var i=0; i < daysInWeek.length; i++) {        
+            var header = '#h-day-'+ (i+1);
+            var cell = '#d-day-'+ (i+1);
+            jQuery(header).text(daysInWeek[(d.getDay() % 7)]);
+            jQuery(cell).text(d.getDate());
+            d.setDate(d.getDate() + 1);
+        }
 
-		//groups
-		// hard 8 because there are 8 groups that show on homepage
-		for (var i=0; i < 8; i++){
-		    var group_id = '#group-' + (i+1);
-		    if (i < groups.length) {    
-			jQuery(group_id+' p').text(groups[i].group_name);
-		    }
-		    else {
-			jQuery(group_id).hide();
-		    }
-		}
-			        
-		
-		}).catch(function(result) {
+        //groups
+        // hard 8 because there are 8 groups that show on homepage
+        for (var i=0; i < 8; i++) {
+            var group_id = '#group-' + (i+1);
+            if (i < groups.length) {    
+                // jQuery(group_id + ' p').text(groups[i].group_name);
+                jQuery(group_id)[0].innerHTML = '';
+                jQuery(group_id).append('<p>' + groups[i].group_name + '</p>');
+                var url = '/group.html?groupId=' + groups[i].group_id;
+                jQuery(group_id).append('<a href="' + url + '"><img src="img/group.png"></a>');
+            } else {
+                jQuery(group_id).hide();
+            }
+        }
+                    
+        
+        }).catch(function(result) {
                 console.error('ERROR: Unable to load user data');
                 console.log(result);
                 if (result.status === 401 || result.status === 403) {
