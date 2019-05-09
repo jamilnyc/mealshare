@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+	<title> Preferences </title>
+	<link rel="stylesheet" href="html/stylesheet.css">
+</head>
+<body>
+	<div class="nav-bar inline">
+		<div class="search-bar">
+			<input type="text" placeholder="Search">
+			<input type="button" value="Go!">
+		</div>
+		<div class="logo">
+			<h1>mealShare</h1>
+		</div>
+		<div class="path-icons">
+			<img src="img/notavail.png" onclick="location.href='#'">
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img src="img/notavail.png" onclick="location.href='#'"> 
+		</div>
+	</div>
+	<div id="preferences" class="inline">
+		<div id="pref-left">
+			<div id="home-avail-container">
+				<div id="user-info">
+					<h1>Name</h1>
+					<img src="img/notavail.png">
+				</div>
+				<div id="avatar-container">
+					<input id="avatar-file-input" type="file" />
+					<button id="avatar-file-upload-button">Upload Avatar</button>
+				</div>
+				<h3>Weekly Availability</h3>
+				<table id="home-avail">
+					<tr>
+						<th id="h-day-1">Sun</th>
+						<th id="h-day-2">Mon</th>
+						<th id="h-day-3">Tue</th>
+						<th id="h-day-4">Wed</th>
+						<th id="h-day-5">Thu</th>
+						<th id="h-day-6">Fri</th>
+						<th id="h-day-7">Sat</th>
+					</tr>
+						<td id="d-day-1"></td>
+						<td id="d-day-2"></td>
+						<td id="d-day-3"></td>
+						<td id="d-day-4"></td>
+						<td id="d-day-5"></td>
+						<td id="d-day-6"></td>
+						<td id="d-day-7"></td>
+				</table>
+			</div>
+		</div>
+		<div id="pref-right">
+			<div id="favorite-dish">
+				<h3>Favorite Dish:</h3>
+				<p></p>
+				<input type="text">
+			</div> 
+			<div id="cooking-ability">
+				<h3>Cooking Ability:</h3>
+			</div>
+			<div id="dining-pref">
+				<h3>Dining Preference:</h3>
+				<p>pick-up</p>
+				<select>
+					<option id="pick-up" value="pick-up">pick-up</option>
+					<option id="drop-off" value="drop-off">drop-off</option>
+					<option id="dine-in" value="dine-in">dine-in</option>
+				</select>
+			</div>
+			<div id="price-range">
+				<h3>Price Per Meal</h3>
+				<div id="dollar-signs" class="inline">
+					<div class="dollar-sign">
+						<p>$</p>
+					</div>
+					<div class="dollar-sign">
+						<p>$</p>
+					</div>
+					<div class="dollar-sign">
+						<p>$</p>
+					</div>
+					<div class="dollar-sign">
+						<p>$</p>
+					</div>
+					<div class="dollar-sign">
+						<p>$</p>
+					</div>
+				</div>
+			</div>
+			<div id="dietary-pref">
+				<h3>Dietary Preferences</h3>
+				<input type="checkbox" disabled="true"> Vegan
+				<input type="checkbox" disabled="true"> Vegetarian
+				<input type="checkbox" disabled="true"> Kosher
+				<h6>Allergies/Other Dietary Restrictions:</h6>
+				<p></p>
+				<textarea></textarea>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div id="pref-edit-option-edit">
+		<button>Edit</button>
+	</div>
+	<div id="pref-edit-option-save">
+		<button>Save</button>
+	</div>
+
+
+	<!--Put the HTML structure of the page here -->
+
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+
+    <!-- Required for API Gateway SDK -->
+    <script type="text/javascript" src="js/lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="js/lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="js/apigClient.js"></script>
+    <script type="text/javascript" src="js/aws-sdk.min.js"></script>
+    <script type="text/javascript" src="js/amazon-cognito-identity.min.js"></script>
+    
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
+    <script type="text/javascript" src="js/users.js"></script>
+    <script type="text/javascript" src="js/preferences.js"></script>
+
+	<script type="text/javascript">
+		$("#pref-edit-option-edit button").on("click", function() {
+			jQuery("#avatar-container").show();
+			jQuery("#favorite-dish p").hide();
+			jQuery("#favorite-dish input").show();
+			$("#favorite-dish input").attr('value', $("#favorite-dish p").text());
+			jQuery("#dining-pref p").hide();
+			jQuery("#dining-pref select").show();
+			$("#" + $("#dining-pref p").text() ).attr('selected', 'selected');
+			jQuery("#pref-edit-option-edit").hide();
+			jQuery("#pref-edit-option-save").show();
+			jQuery("#dietary-pref input").attr('disabled', false);
+			jQuery("#dietary-pref p").hide();
+			jQuery("#dietary-pref textarea").show();
+			$("#dietary-pref textarea").attr('value', jQuery("#dietary-pref p").text())
+		});
+
+		$("#pref-edit-option-save button").on("click", function() {
+			jQuery("#avatar-container").hide();
+			jQuery("#favorite-dish p").show();
+			jQuery("#favorite-dish input").hide();
+			jQuery("#favorite-dish p").text($("#favorite-dish input").val());
+			jQuery("#dining-pref p").show();
+			jQuery("#dining-pref select").hide();
+			jQuery("#dining-pref p").text($("#dining-pref select").val());
+			jQuery("#pref-edit-option-edit").show();
+			jQuery("#pref-edit-option-save").hide();
+			jQuery("#dietary-pref input").attr('disabled', true);
+			jQuery("#dietary-pref p").show();
+			jQuery("#dietary-pref p").text($("#dietary-pref textarea").val());
+			jQuery("#dietary-pref textarea").hide();
+		})
+
+		jQuery(function (){
+			jQuery('#availability-month').text(mS[d.getMonth()])	
+			for (var i=0; i < daysInWeek.length; i++) {		   
+			    var header = '#h-day-'+ (i+1);
+			    jQuery(header).text(daysInWeek[0]);
+			}
+		});
+
+	</script>
+</body>
+</html>

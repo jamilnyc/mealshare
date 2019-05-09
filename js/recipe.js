@@ -27,9 +27,10 @@ var MealShareApp = window.MealShareApp || {};
                 }
 
                 var recipe = recipes[0];
-                jQuery('body').append('<h1>' + recipe.title + '</h1>');
-                jQuery('body').append('<img src="' + recipe.image + '" />');
-                
+                jQuery("#recipe-left h2").text(recipe.title);
+               	jQuery("#recipe-left img").attr('src', recipe.image); 
+                jQuery("#recipe-left a").attr('href', recipe.url);
+
             }).catch(function(result) {
                 console.error('ERROR: Unable to load recipe');
                 console.log(result);

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title> Recipe </title>
+	<title> Calendar </title>
 	<link rel="stylesheet" href="html/stylesheet.css">
 </head>
 <body>
@@ -22,15 +22,39 @@
 		</div>
 	</div>
 	<div class="inline">
-		<div id="recipe-left">
-			<a href="#">
-				<h2>Recipe Name</h2>
-			</a>
-			<br>
-			<img src="img/notavail.png"> 
+		<div id="cal-left">
+			<h2>Calendar</h2>
+			<div id="cal-div">
+				<table id="calendar">
+					<tr>
+						<th>Sun</th>
+						<th>Mon</th>
+						<th>Tue</th>
+						<th>Wed</th>
+						<th>Thu</th>
+						<th>Fri</th>
+						<th>Sat</th>
+					</tr>
+				</table>
+			</div>
 		</div>
-		<div id="recipe-right">
-			<h3>Steps</h3>
+		<div id="cal-right">
+			<h3>Next Event Details</h3>
+			<div class="inline">
+				<div id="cal-group">
+					<p>Group</p>
+					<img src="img/notavail.png"> 
+				</div>
+				<div id="cal-meal">
+					<p> Meal</p>
+					<img src="img/notavail.png">
+				</div>
+			</div>
+			<div id="next-event">
+				<p>Date</p>
+				<p>Time</p>
+				<p>Location</p>
+			</div>
 		</div>
 	</div>
 
@@ -54,20 +78,38 @@
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/auth.js"></script>
-    <script type="text/javascript" src="js/preferences.js"></script>
     <script type="text/javascript" src="js/users.js"></script>
-    <script type="text/javascript" src="js/recipe.js"></script>
-    
-    <script type="application/javascript">
-        jQuery(function() {
-        	var recipeId = MealShareApp.getRecipeIdFromUrl();
-            if (!recipeId) {
-                alert('Invalid recipe ID detected');
-                return;
-            }
+    <script type="text/javascript" src="js/preferences.js"></script>
 
-            MealShareApp.loadRecipeDetail(recipeId);
-        });
-    </script>
+	<script type="text/javascript">
+		jQuery(function (){
+			d = new Date();
+			jQuery("#cal-left h2").text(mS[d.getMonth()] + " " + d.getFullYear());
+			d.setDate(1);
+			var month = d.getMonth();
+			var day = d.getDay();
+			var count = 1;
+			while( d.getMonth() == month ) {
+				$("#calendar").append($("<tr id=tr-"+ count + "></tr>"));
+				for (var i=0; i < 7; i++) {
+					d.setDate(d.getDate() - day + i);
+					$("#tr-"+ count).append($("<td class='day'>" + d.getDate() + "</td>"))
+					d.setDate(d.getDate() + day - i);
+				}
+				count++;
+				d.setDate(d.getDate() + 7);
+			}
+			var curMonth = d.getMonth()
+			d.setDate(d.getDate() - day);
+			if (d.getMonth() != curMonth) {
+				$("#calendar").append($("<tr id=tr-"+ count + "></tr>"));
+				for (var i=0; i < 7; i++) {
+					d.setDate(d.getDate() - day + i);
+					$("#tr-"+ count).append($("<td class='day'>" + d.getDate() + "</td>"))
+					d.setDate(d.getDate() + day - i);
+				}
+			}		
+		});
+	</script>
 </body>
 </html>
