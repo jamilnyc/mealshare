@@ -480,3 +480,9 @@ a:hover {
 	font-size: 36px;
 	font-family: Arial;
 }
+
+.group p {
+	font-family: Arial;
+	font-size: 14px;
+	color: green;
+}
