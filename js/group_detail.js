@@ -60,7 +60,7 @@ var MealShareApp = window.MealShareApp || {};
                     jQuery('#ppl-rec').append('<h5>Members</h5>');
                     members.forEach(function(member) {
                         var imgSrc = "https://s3.amazonaws.com/dam-mealshare/avatars/" + member + ".jpg";
-                        var url = '/user.html?userId=' + member;
+                        var url = '/profile.html?userId=' + member;
                         var element = '<div class="person"><p>' + member + 
                         '<a href="' + url + '"></p><img class="avatar" src="' + imgSrc + '"></a></div>';
                         jQuery('#ppl-rec').append(element);

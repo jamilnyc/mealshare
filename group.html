@@ -3,23 +3,23 @@
 <head>
 	<title> Group </title>
 	<link rel="stylesheet" href="css/stylesheet.css">
+	<link rel="stylesheet" href="html/stylesheet.css">
 	<script type="text/javascript" src="/js/chat.js"></script>
 </head>
 <body>
 	<div class="nav-bar inline">
+		<div id="nav-bar-buffer">
+		</div>
 		<div class="search-bar">
-			<input type="text" placeholder="Search">
-			<input type="button" value="Go!">
+			<img src="img/create_group.png" onclick="location.href='#'"> 
 		</div>
 		<div class="logo">
 			<h1>mealShare</h1>
 		</div>
 		<div class="path-icons">
-			<img src="img/notavail.png" onclick="location.href='#'">
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img id="home-icon" src="img/home.png" onclick="location.href='home.html'">
+			<img id="cal-icon" src="img/cal.png"> 
+			<img id="profile-icon" src="img/profile.png"> 
 		</div>
 	</div>
 	<br>
@@ -30,7 +30,7 @@
 					<h3>Group Name</h3>
 				</div>
 				<div id="group-settings">
-					<img src="img/notavail.png">
+					<img src="img/settings.png" onclick="location.href='#'">
 				</div>
 			</div>
 			<div id="next-meal" class="inline">
@@ -144,6 +144,14 @@
         jQuery(function() {
             MealShareApp.getGroupDetails();
         });
+
+         $("#profile-icon").on("click", function() {
+        	MealShareApp.goToProfile();
+        })
+
+        $("#cal-icon").on("click", function () {
+        	MealShareApp.goToCalendar();
+        })
     </script>
 </body>
 </html>

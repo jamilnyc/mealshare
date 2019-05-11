@@ -6,19 +6,17 @@
 </head>
 <body>
 	<div class="nav-bar inline">
+		<div id="nav-bar-buffer">
+		</div>
 		<div class="search-bar">
-			<input type="text" placeholder="Search">
-			<input type="button" value="Go!">
 		</div>
 		<div class="logo">
 			<h1>mealShare</h1>
 		</div>
 		<div class="path-icons">
-			<img src="img/notavail.png" onclick="location.href='#'">
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img id="home-icon" src="img/home.png" onclick="location.href='home.html'">
+			<img id="cal-icon" src="img/cal.png"> 
+			<img id="profile-icon" src="img/profile.png"> 
 		</div>
 	</div>
 	<div id="preferences" class="inline">
@@ -26,42 +24,40 @@
 			<div id="home-avail-container">
 				<div id="user-info">
 					<h1>Name</h1>
-					<img src="img/notavail.png">
+					<img id="profile-pic" src="img/notavail.png">
 				</div>
 				<div id="avatar-container">
 					<input id="avatar-file-input" type="file" />
 					<button id="avatar-file-upload-button">Upload Avatar</button>
 				</div>
-				<h3>Weekly Availability</h3>
-				<table id="home-avail">
-					<tr>
-						<th id="h-day-1">Sun</th>
-						<th id="h-day-2">Mon</th>
-						<th id="h-day-3">Tue</th>
-						<th id="h-day-4">Wed</th>
-						<th id="h-day-5">Thu</th>
-						<th id="h-day-6">Fri</th>
-						<th id="h-day-7">Sat</th>
-					</tr>
-						<td id="d-day-1"></td>
-						<td id="d-day-2"></td>
-						<td id="d-day-3"></td>
-						<td id="d-day-4"></td>
-						<td id="d-day-5"></td>
-						<td id="d-day-6"></td>
-						<td id="d-day-7"></td>
-				</table>
 			</div>
 		</div>
 		<div id="pref-right">
+			<h3>Weekly Availability</h3>
+			<h5 id="availability-month">hello</h5>
+			<table id="profile-avail">
+				<tr>
+					<th id="h-day-1">Sun</th>
+					<th id="h-day-2">Mon</th>
+					<th id="h-day-3">Tue</th>
+					<th id="h-day-4">Wed</th>
+					<th id="h-day-5">Thu</th>
+					<th id="h-day-6">Fri</th>
+					<th id="h-day-7">Sat</th>
+				</tr>
+					<td id="d-day-1" class="clear"></td>
+					<td id="d-day-2" class="clear"></td>
+					<td id="d-day-3" class="clear"></td>
+					<td id="d-day-4" class="clear"></td>
+					<td id="d-day-5" class="clear"></td>
+					<td id="d-day-6" class="clear"></td>
+					<td id="d-day-7" class="clear"></td>
+			</table>
 			<div id="favorite-dish">
 				<h3>Favorite Dish:</h3>
 				<p></p>
 				<input type="text">
 			</div> 
-			<div id="cooking-ability">
-				<h3>Cooking Ability:</h3>
-			</div>
 			<div id="dining-pref">
 				<h3>Dining Preference:</h3>
 				<p>pick-up</p>
@@ -71,31 +67,12 @@
 					<option id="dine-in" value="dine-in">dine-in</option>
 				</select>
 			</div>
-			<div id="price-range">
-				<h3>Price Per Meal</h3>
-				<div id="dollar-signs" class="inline">
-					<div class="dollar-sign">
-						<p>$</p>
-					</div>
-					<div class="dollar-sign">
-						<p>$</p>
-					</div>
-					<div class="dollar-sign">
-						<p>$</p>
-					</div>
-					<div class="dollar-sign">
-						<p>$</p>
-					</div>
-					<div class="dollar-sign">
-						<p>$</p>
-					</div>
-				</div>
-			</div>
 			<div id="dietary-pref">
 				<h3>Dietary Preferences</h3>
 				<input type="checkbox" disabled="true"> Vegan
 				<input type="checkbox" disabled="true"> Vegetarian
 				<input type="checkbox" disabled="true"> Kosher
+				<input type="checkbox" disabled="true"> Gluten Free
 				<h6>Allergies/Other Dietary Restrictions:</h6>
 				<p></p>
 				<textarea></textarea>
@@ -106,7 +83,7 @@
 	<div id="pref-edit-option-edit">
 		<button>Edit</button>
 	</div>
-	<div id="pref-edit-option-save">
+	<div id="pref-edit-option-save" class='hidden'>
 		<button>Save</button>
 	</div>
 
@@ -152,6 +129,7 @@
 			jQuery("#dietary-pref p").hide();
 			jQuery("#dietary-pref textarea").show();
 			$("#dietary-pref textarea").attr('value', jQuery("#dietary-pref p").text())
+			$("#pref-edit-option-save").attr('class', 'other');
 		});
 
 		$("#pref-edit-option-save button").on("click", function() {
@@ -168,9 +146,11 @@
 			jQuery("#dietary-pref p").show();
 			jQuery("#dietary-pref p").text($("#dietary-pref textarea").val());
 			jQuery("#dietary-pref textarea").hide();
+			$("#pref-edit-option-save").attr('class', 'hidden');
 		})
 
 		jQuery(function (){
+			d = new Date();
 			jQuery('#availability-month').text(mS[d.getMonth()])	
 			for (var i=0; i < daysInWeek.length; i++) {		   
 			    var header = '#h-day-'+ (i+1);
@@ -178,6 +158,121 @@
 			}
 		});
 
+		$("#d-day-1").on("click", function () {
+			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
+				if ($("#d-day-1").attr('class') == 'clear') {
+					$("#d-day-1").attr('class', 'shaded');
+				} else {
+					$("#d-day-1").attr('class', 'clear');
+				}
+			}
+		});
+
+		$("#d-day-2").on("click", function () {
+			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
+				if ($("#d-day-2").attr('class') == 'clear') {
+					$("#d-day-2").attr('class', 'shaded');
+				} else {
+					$("#d-day-2").attr('class', 'clear');
+				}
+			}
+		});
+
+		$("#d-day-3").on("click", function () {
+			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
+				if ($("#d-day-3").attr('class') == 'clear') {
+					$("#d-day-3").attr('class', 'shaded');
+				} else {
+					$("#d-day-3").attr('class', 'clear');
+				}
+			}
+		});
+
+		$("#d-day-4").on("click", function () {
+			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
+				if ($("#d-day-4").attr('class') == 'clear') {
+					$("#d-day-4").attr('class', 'shaded');
+				} else {
+					$("#d-day-4").attr('class', 'clear');
+				}
+			}
+		});
+
+		$("#d-day-5").on("click", function () {
+			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
+				if ($("#d-day-5").attr('class') == 'clear') {
+					$("#d-day-5").attr('class', 'shaded');
+				} else {
+					$("#d-day-5").attr('class', 'clear');
+				}
+			}
+		});
+
+		$("#d-day-6").on("click", function () {
+			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
+				if ($("#d-day-6").attr('class') == 'clear') {
+					$("#d-day-6").attr('class', 'shaded');
+				} else {
+					$("#d-day-6").attr('class', 'clear');
+				}
+			}
+		});
+
+		$("#d-day-7").on("click", function () {
+			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
+				if ($("#d-day-7").attr('class') == 'clear') {
+					$("#d-day-7").attr('class', 'shaded');
+				} else {
+					$("#d-day-7").attr('class', 'clear');
+				}
+			}
+		});
+
+
 	</script>
+	<script type="application/javascript">
+        jQuery(function() {
+        	var userId = MealShareApp.getUserIdFromUrl();
+            MealShareApp.getUserDetails(userId);
+        });
+
+        jQuery('#avatar-file-input').on('change', function() {
+		    if (this.files && this.files[0]) {
+		        var fr = new FileReader();
+		        fr.addEventListener("load", function(e) {
+		            base64 = e.target.result;
+		            clean_base64 = base64.split(',')[1];
+		            MealShareApp.uploadedImageData = clean_base64;
+		        });
+		        fr.readAsDataURL(this.files[0])
+		    } 
+		});
+
+		jQuery('#avatar-file-upload-button').on('click', function() {
+		    MealShareApp.uploadImage();
+		    jQuery('#avatar-file-input').val('');
+		});
+
+		jQuery('#avatar-file-input').val('');
+
+		// Show the upload form only if the user is the current one
+		jQuery(function() {
+		    var loggedInUser = MealShareApp.getCurrentUserName();
+		    var viewedUser = MealShareApp.getUserIdFromUrl();
+		    if (loggedInUser == viewedUser) {
+		    	jQuery('#pref-edit-option-edit').show();
+		    } else {
+		    	jQuery('#pref-edit-option-edit').hide();
+		    }
+		});
+
+		$("#profile-icon").on("click", function() {
+        	MealShareApp.goToProfile();
+        })
+
+        $("#cal-icon").on("click", function () {
+        	MealShareApp.goToCalendar();
+        })
+    </script>
 </body>
 </html>

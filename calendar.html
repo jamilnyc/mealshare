@@ -6,19 +6,17 @@
 </head>
 <body>
 	<div class="nav-bar inline">
+		<div id="nav-bar-buffer">
+		</div>
 		<div class="search-bar">
-			<input type="text" placeholder="Search">
-			<input type="button" value="Go!">
 		</div>
 		<div class="logo">
 			<h1>mealShare</h1>
 		</div>
 		<div class="path-icons">
-			<img src="img/notavail.png" onclick="location.href='#'">
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img id="home-icon" src="img/home.png" onclick="location.href='home.html'">
+			<img id="cal-icon" src="img/cal.png"> 
+			<img id="profile-icon" src="img/profile.png"> 
 		</div>
 	</div>
 	<div class="inline">
@@ -39,21 +37,15 @@
 			</div>
 		</div>
 		<div id="cal-right">
-			<h3>Next Event Details</h3>
-			<div class="inline">
-				<div id="cal-group">
-					<p>Group</p>
-					<img src="img/notavail.png"> 
-				</div>
-				<div id="cal-meal">
-					<p> Meal</p>
-					<img src="img/notavail.png">
-				</div>
-			</div>
 			<div id="next-event">
-				<p>Date</p>
-				<p>Time</p>
-				<p>Location</p>
+				<h3 id="next-meal-group">Group</h3>
+				<p id="next-meal-name">Next Meal</p>
+				<p id="next-meal-date">Date</p>
+				<p id="next-meal-time">Time</p>
+				<p id="next-meal-food"></p>
+				<p id="next-meal-location">Location</p>
+			</div>
+			<div id="home-map">
 			</div>
 		</div>
 	</div>
@@ -83,6 +75,7 @@
 
 	<script type="text/javascript">
 		jQuery(function (){
+
 			d = new Date();
 			jQuery("#cal-left h2").text(mS[d.getMonth()] + " " + d.getFullYear());
 			d.setDate(1);
@@ -93,7 +86,7 @@
 				$("#calendar").append($("<tr id=tr-"+ count + "></tr>"));
 				for (var i=0; i < 7; i++) {
 					d.setDate(d.getDate() - day + i);
-					$("#tr-"+ count).append($("<td class='day'>" + d.getDate() + "</td>"))
+					$("#tr-"+ count).append($("<td class='day' id=td-" + ((7*(count-1))+(i+1)) + ">" + d.getDate() + "</td>"))
 					d.setDate(d.getDate() + day - i);
 				}
 				count++;
@@ -104,12 +97,25 @@
 			if (d.getMonth() != curMonth) {
 				$("#calendar").append($("<tr id=tr-"+ count + "></tr>"));
 				for (var i=0; i < 7; i++) {
+					console.log(count * (i+1))
 					d.setDate(d.getDate() - day + i);
-					$("#tr-"+ count).append($("<td class='day'>" + d.getDate() + "</td>"))
+					$("#tr-"+ count).append($("<td class='day' id=td-" + ((7*(count-1))+(i+1)) + ">" + d.getDate() + "</td>"))
 					d.setDate(d.getDate() + day - i);
 				}
-			}		
+			}
+
+			MealShareApp.userCalendarDetails();	
+
+
 		});
+
+		$("#profile-icon").on("click", function() {
+        	MealShareApp.goToProfile();
+        })
+
+        $("#cal-icon").on("click", function () {
+        	MealShareApp.goToCalendar();
+        })
 	</script>
 </body>
 </html>

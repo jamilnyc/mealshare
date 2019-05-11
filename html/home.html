@@ -2,23 +2,19 @@
 <html>
 <head>
 	<title> Home </title>
-	<link rel="stylesheet" href="stylesheet.css">
+	<link rel="stylesheet" href="html/stylesheet.css">
 </head>
 <body>
 	<div class="nav-bar inline">
 		<div class="search-bar">
-			<input type="text" placeholder="Search">
-			<input type="button" value="Go!">
 		</div>
 		<div class="logo">
 			<h1>mealShare</h1>
 		</div>
 		<div class="path-icons">
-			<img src="img/notavail.png" onclick="location.href='#'">
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img src="img/home.png" onclick="location.href='home.html'">
+			<img src="img/cal.png" onclick="location.href='calendar.html'"> 
+			<img src="img/profile.png" onclick="location.href='profile.html'"> 
 		</div>
 	</div>
 	<br>
@@ -26,73 +22,74 @@
 		<div class="margin-buffer">
 		</div>
 		<div id="home-left">
-			<div id="home-map">
-				<img src="img/notavail.png">
-			</div>
 			<div id="next-event">
-				<p>Group</p>
-				<p>Meal</p>
-				<p>Date</p>
-				<p>Time</p>
-				<p>Location</p>
+				<h3 id="next-meal-group">Group</h3>
+				<p id="next-meal-name">Next Meal</p>
+				<p id="next-meal-date">Date</p>
+				<p id="next-meal-time">Time</p>
+				<p id="next-meal-location">Location</p>
+                <p id="next-meal-food"></p>
+			</div>
+			<div id="home-map">
 			</div>
 		</div>
 		<div id="home-right">
 			<div id="home-avail-container">
 				<h3>Your availability this week</h3>
+				<h5 id="availability-month">Month</h5>
 				<table id="home-avail">
 					<tr>
-						<th>Sun</th>
-						<th>Mon</th>
-						<th>Tue</th>
-						<th>Wed</th>
-						<th>Thu</th>
-						<th>Fri</th>
-						<th>Sat</th>
+						<th id="h-day-1">Sun</th>
+						<th id="h-day-2">Mon</th>
+						<th id="h-day-3">Tue</th>
+						<th id="h-day-4">Wed</th>
+						<th id="h-day-5">Thu</th>
+						<th id="h-day-6">Fri</th>
+						<th id="h-day-7">Sat</th>
 					</tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>7</td>
+						<td id="d-day-1">1</td>
+						<td id="d-day-2">2</td>
+						<td id="d-day-3">3</td>
+						<td id="d-day-4">4</td>
+						<td id="d-day-5">5</td>
+						<td id="d-day-6">6</td>
+						<td id="d-day-7">7</td>
 				</table>
 			</div>
 			<div id="home-groups">
 				<h3>Your groups</h3>
 				<div class="group-row inline">
-					<div class="group">
+					<div class="group" id="group-1">
 						<p>Group</p>
 						<img src="img/notavail.png"> 
 					</div>
-					<div class="group">
+					<div class="group" id="group-2">
 						<p>Group</p>
 						<img src="img/notavail.png"> 
 					</div>
-					<div class="group">
+					<div class="group" id="group-3">
 						<p>Group</p>
 						<img src="img/notavail.png"> 
 					</div>
-					<div class="group">
+					<div class="group" id="group-4">
 						<p>Group</p>
 						<img src="img/notavail.png"> 
 					</div>
 				</div>
 				<div class="group-row inline">
-					<div class="group">
+					<div class="group" id="group-5">
 						<p>Group</p>
 						<img src="img/notavail.png"> 
 					</div>
-					<div class="group">
+					<div class="group" id="group-6">
 						<p>Group</p>
 						<img src="img/notavail.png"> 
 					</div>
-					<div class="group">
+					<div class="group" id="group-7">
 						<p>Group</p>
 						<img src="img/notavail.png"> 
 					</div>
-					<div class="group">
+					<div class="group" id="group-8">
 						<p>Group</p>
 						<img src="img/notavail.png"> 
 					</div>
@@ -100,5 +97,38 @@
 			</div>
 		</div>
 	</div>
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+
+    <!-- Required for API Gateway SDK -->
+    <script type="text/javascript" src="js/lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="js/lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="js/apigClient.js"></script>
+    <script type="text/javascript" src="js/aws-sdk.min.js"></script>
+    <script type="text/javascript" src="js/amazon-cognito-identity.min.js"></script>
+    
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-JYWPBixmig4rBOVeQsSrwtjdt94suKA"></script>
+    <script type="text/javascript" src="js/map_helper.js"></script>
+    <script type="text/javascript" src="js/groups.js"></script>
+    <script type="text/javascript" src="js/group_detail.js"></script>
+    <script type="text/javascript" src="js/preferences.js"></script>
+    <script type="text/javascript" src="js/users.js"></script>
+
+    <script type="application/javascript">
+        jQuery(function() {
+            MealShareApp.getUserDetailsHome();
+        });
+    </script>
 </body>
 </html>

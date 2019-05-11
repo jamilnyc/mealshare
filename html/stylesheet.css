@@ -68,6 +68,7 @@
 }
 
 .nav-bar {
+	padding-top: 5px;
 	background-color: #5EBA79;
 	width: 100%;
 }
@@ -102,8 +103,12 @@
 }
 
 .search-bar {
-	width: 28.5%;
-	text-align: center;
+	width: 23.5%;
+	text-align: left;
+}
+
+.search-bar img {
+	width: 15%;
 }
 
 .logo {
@@ -213,12 +218,9 @@
 }
 
 #home-map {
-	width: 100%;
+	height: 250px;
+	width: 90%;
 	text-align: center;
-}
-
-#home-map img {
-	width: 65%;
 }
 
 #home-right {
@@ -255,7 +257,7 @@
 }
 
 .group img {
-	width: 50%;
+	width: 100%;
 }
 
 #groups-groups {
@@ -403,8 +405,38 @@
 	vertical-align: top;
 }
 
+.shaded {
+	background-color: grey;
+}
 
+.clear {
+	background-color: none;
+}
 
+#nav-bar-buffer {
+	width: 5%;
+}
+
+#profile-pic {
+	width: 75%;
+}
+
+#profile-avail th, td {
+	border-style: solid;
+	width: 10%;
+}
+
+#profile-avail td {
+	height: 10vh;
+	text-align: left;
+	vertical-align: top;
+
+}
+
+#profile-avail {
+	border-style: solid;
+	width: 100%;
+}
 
 body {
 	background-color: #F5F5F5;

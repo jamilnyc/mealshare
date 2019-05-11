@@ -6,19 +6,18 @@
 </head>
 <body>
 	<div class="nav-bar inline">
+		<div id="nav-bar-buffer">
+		</div>
 		<div class="search-bar">
-			<input type="text" placeholder="Search">
-			<input type="button" value="Go!">
+			<img src="img/create_group.png" onclick="location.href='#'"> 
 		</div>
 		<div class="logo">
 			<h1>mealShare</h1>
 		</div>
 		<div class="path-icons">
-			<img src="img/notavail.png" onclick="location.href='#'">
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img id="home-icon" src="img/home.png" onclick="location.href='home.html'">
+			<img id="cal-icon" src="img/cal.png"> 
+			<img id="profile-icon" src="img/profile.png"> 
 		</div>
 	</div>
 	<br>
@@ -31,11 +30,10 @@
 				<p id="next-meal-name">Next Meal</p>
 				<p id="next-meal-date">Date</p>
 				<p id="next-meal-time">Time</p>
+				<p id="next-meal-food"></p>
 				<p id="next-meal-location">Location</p>
-                <p id="next-meal-food"></p>
 			</div>
 			<div id="home-map">
-				<img src="img/notavail.png">
 			</div>
 		</div>
 		<div id="home-right">
@@ -53,7 +51,7 @@
 						<th id="h-day-7">Sat</th>
 					</tr>
 						<td id="d-day-1">1</td>
-						<td id="d-day-2">2</td>
+						<td id="d-day-2" class="shaded">2</td>
 						<td id="d-day-3">3</td>
 						<td id="d-day-4">4</td>
 						<td id="d-day-5">5</td>
@@ -65,38 +63,22 @@
 				<h3>Your groups</h3>
 				<div class="group-row inline">
 					<div class="group" id="group-1">
-						<p>Group</p>
-						<img src="img/notavail.png"> 
 					</div>
 					<div class="group" id="group-2">
-						<p>Group</p>
-						<img src="img/notavail.png"> 
 					</div>
 					<div class="group" id="group-3">
-						<p>Group</p>
-						<img src="img/notavail.png"> 
 					</div>
 					<div class="group" id="group-4">
-						<p>Group</p>
-						<img src="img/notavail.png"> 
 					</div>
 				</div>
 				<div class="group-row inline">
 					<div class="group" id="group-5">
-						<p>Group</p>
-						<img src="img/notavail.png"> 
 					</div>
 					<div class="group" id="group-6">
-						<p>Group</p>
-						<img src="img/notavail.png"> 
 					</div>
 					<div class="group" id="group-7">
-						<p>Group</p>
-						<img src="img/notavail.png"> 
 					</div>
 					<div class="group" id="group-8">
-						<p>Group</p>
-						<img src="img/notavail.png"> 
 					</div>
 				</div>
 			</div>
@@ -134,6 +116,16 @@
         jQuery(function() {
             MealShareApp.getUserDetailsHome();
         });
+
+
+        $("#profile-icon").on("click", function() {
+        	MealShareApp.goToProfile();
+        })
+
+        $("#cal-icon").on("click", function () {
+        	MealShareApp.goToCalendar();
+        })
+
     </script>
 </body>
 </html>

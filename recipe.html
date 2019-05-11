@@ -6,19 +6,17 @@
 </head>
 <body>
 	<div class="nav-bar inline">
+		<div id="nav-bar-buffer">
+		</div>
 		<div class="search-bar">
-			<input type="text" placeholder="Search">
-			<input type="button" value="Go!">
 		</div>
 		<div class="logo">
 			<h1>mealShare</h1>
 		</div>
 		<div class="path-icons">
-			<img src="img/notavail.png" onclick="location.href='#'">
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
-			<img src="img/notavail.png" onclick="location.href='#'"> 
+			<img id="home-icon" src="img/home.png" onclick="location.href='home.html'">
+			<img id="cal-icon" src="img/cal.png"> 
+			<img id="profile-icon" src="img/profile.png"> 
 		</div>
 	</div>
 	<div class="inline">
@@ -68,6 +66,14 @@
 
             MealShareApp.loadRecipeDetail(recipeId);
         });
+
+        $("#profile-icon").on("click", function() {
+        	MealShareApp.goToProfile();
+        })
+
+        $("#cal-icon").on("click", function () {
+        	MealShareApp.goToCalendar();
+        })
     </script>
 </body>
 </html>
