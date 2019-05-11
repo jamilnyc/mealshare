@@ -68,6 +68,7 @@
 }
 
 .nav-bar {
+	padding-top: 5px;
 	background-color: #5EBA79;
 	width: 100%;
 }
@@ -102,8 +103,12 @@
 }
 
 .search-bar {
-	width: 28.5%;
-	text-align: center;
+	width: 23.5%;
+	text-align: left;
+}
+
+.search-bar img {
+	width: 15%;
 }
 
 .logo {
@@ -189,7 +194,7 @@
 }
 
 .margin-buffer {
-	width: 15%;
+	width: 10%;
 }
 
 #message-container {
@@ -208,7 +213,228 @@
     text-align: center;
 }
 
+#home-left {
+	width: 35%;
+}
 
+#home-map {
+	height: 250px;
+	width: 90%;
+	text-align: center;
+}
+
+#home-right {
+	float: right;
+	width: 50%;
+}
+
+#home-avail th, td {
+	border-style: solid;
+	width: 10%;
+}
+
+#home-avail td {
+	height: 10vh;
+	text-align: left;
+	vertical-align: top;
+}
+
+#home-avail {
+	border-style: solid;
+	width: 100%;
+}
+
+#home-avail-container {
+	width: 90%;
+}
+
+.group-row {
+	width: 100%;
+}
+
+.group {
+	width: 20%;
+}
+
+.group img {
+	width: 100%;
+}
+
+#groups-groups {
+	text-align: center;
+}
+
+#pref-left {
+	width: 48%;
+	float: left;
+}
+
+#pref-right {
+	width: 50%;
+	float: left;
+}
+
+#pref-edit-option-edit {
+	width: 95%;
+	float: left;
+	text-align: center;
+}
+
+#pref-edit-option-save {
+	width: 95%;
+	float: left;
+	text-align: center;
+	display: none;
+}
+
+.dollar-sign {
+	width: 15%;
+}
+
+#dollar-signs {
+	width: 100%;
+	text-align: center;
+}
+
+#price-range {
+	width: 100%;
+}
+
+#favorite-dish {
+	width: 100%;
+}
+
+#cooking-ability {
+	width: 100%;
+}
+
+#dining-pref {
+	width: 100%;
+}
+
+#cal-left {
+	width: 60%;
+	float: left;
+	text-align: center;
+}
+
+#cal-right {
+	width: 38%;
+	float: left;
+}
+
+#cal-group {
+	width: 40%;
+}
+
+#cal-group img {
+	width: 90%;
+}
+
+#map-food-container {
+	width: 90%;
+}
+
+#cal-map {
+	width: 45%;
+	padding-right: 5px;
+}
+
+#cal-map img {
+	width: 50%;
+}
+
+#cal-meal {
+	width: 40%;
+}
+
+#cal-meal img {
+	width: 90%;
+}
+
+#recipe-left {
+	width: 48%;
+	float: left;
+}
+
+#recipe-right {
+	width: 50%;
+	float: right;
+}
+
+#avatar-container {
+	display: none;
+}
+
+#favorite-dish input {
+}
+
+#dining-pref select {
+}
+
+#dietary-pref textarea {
+	display: none;
+}
+
+#recipe-left img {
+	width: 90%;
+}
+
+#cal-left th, td {
+	border-style: solid;
+	width: 10%;
+}
+
+#cal-left table {
+	border-style: solid;
+	border-color: black;
+	width: 100%;
+}
+
+#cal-div {
+	width: 90%;
+}
+
+.day {
+	border-style: solid;
+	width: 10%;
+	height: 10vh;
+	text-align: left;
+	vertical-align: top;
+}
+
+.shaded {
+	background-color: grey;
+}
+
+.clear {
+	background-color: none;
+}
+
+#nav-bar-buffer {
+	width: 5%;
+}
+
+#profile-pic {
+	width: 75%;
+}
+
+#profile-avail th, td {
+	border-style: solid;
+	width: 10%;
+}
+
+#profile-avail td {
+	height: 10vh;
+	text-align: left;
+	vertical-align: top;
+
+}
+
+#profile-avail {
+	border-style: solid;
+	width: 100%;
+}
 
 body {
 	background-color: #F5F5F5;
@@ -217,13 +443,3 @@ body {
 }
 
 
-/** Google Maps Styles **/
-#next-meal-map {
-    height: 400px;
-    width: 58%;
-}
-
-
-#avatar-container {
-	display: none;
-}

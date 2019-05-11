@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title> Preferences </title>
-	<link rel="stylesheet" href="html/stylesheet.css">
+	<link rel="stylesheet" href="css/stylesheet.css">
 </head>
 <body>
 	<div class="nav-bar inline">
@@ -56,26 +56,22 @@
 			<div id="favorite-dish">
 				<h3>Favorite Dish:</h3>
 				<p></p>
-				<input type="text">
+				<input id="favorite-dish-input" type="text" disabled="true">
 			</div> 
 			<div id="dining-pref">
 				<h3>Dining Preference:</h3>
-				<p>pick-up</p>
-				<select>
-					<option id="pick-up" value="pick-up">pick-up</option>
-					<option id="drop-off" value="drop-off">drop-off</option>
-					<option id="dine-in" value="dine-in">dine-in</option>
+				<select disabled="true">
+					<option id="pick-up" value="Pick Up">Pick Up</option>
+					<option id="drop-off" value="Drop Off">Drop Off</option>
+					<option id="eat-together" value="Eat Together">Eat Together</option>
 				</select>
 			</div>
 			<div id="dietary-pref">
 				<h3>Dietary Preferences</h3>
-				<input type="checkbox" disabled="true"> Vegan
-				<input type="checkbox" disabled="true"> Vegetarian
-				<input type="checkbox" disabled="true"> Kosher
-				<input type="checkbox" disabled="true"> Gluten Free
-				<h6>Allergies/Other Dietary Restrictions:</h6>
-				<p></p>
-				<textarea></textarea>
+				<input type="checkbox" disabled="true" id="Vegan"> Vegan
+				<input type="checkbox" disabled="true" id="Vegetarian"> Vegetarian
+				<input type="checkbox" disabled="true" id="Kosher"> Kosher
+				<input type="checkbox" disabled="true" id="Gluten-Free"> Gluten-Free
 			</div>
 		</div>
 	</div>
@@ -115,39 +111,9 @@
     <script type="text/javascript" src="js/preferences.js"></script>
 
 	<script type="text/javascript">
-		$("#pref-edit-option-edit button").on("click", function() {
-			jQuery("#avatar-container").show();
-			jQuery("#favorite-dish p").hide();
-			jQuery("#favorite-dish input").show();
-			$("#favorite-dish input").attr('value', $("#favorite-dish p").text());
-			jQuery("#dining-pref p").hide();
-			jQuery("#dining-pref select").show();
-			$("#" + $("#dining-pref p").text() ).attr('selected', 'selected');
-			jQuery("#pref-edit-option-edit").hide();
-			jQuery("#pref-edit-option-save").show();
-			jQuery("#dietary-pref input").attr('disabled', false);
-			jQuery("#dietary-pref p").hide();
-			jQuery("#dietary-pref textarea").show();
-			$("#dietary-pref textarea").attr('value', jQuery("#dietary-pref p").text())
-			$("#pref-edit-option-save").attr('class', 'other');
-		});
 
-		$("#pref-edit-option-save button").on("click", function() {
-			jQuery("#avatar-container").hide();
-			jQuery("#favorite-dish p").show();
-			jQuery("#favorite-dish input").hide();
-			jQuery("#favorite-dish p").text($("#favorite-dish input").val());
-			jQuery("#dining-pref p").show();
-			jQuery("#dining-pref select").hide();
-			jQuery("#dining-pref p").text($("#dining-pref select").val());
-			jQuery("#pref-edit-option-edit").show();
-			jQuery("#pref-edit-option-save").hide();
-			jQuery("#dietary-pref input").attr('disabled', true);
-			jQuery("#dietary-pref p").show();
-			jQuery("#dietary-pref p").text($("#dietary-pref textarea").val());
-			jQuery("#dietary-pref textarea").hide();
-			$("#pref-edit-option-save").attr('class', 'hidden');
-		})
+
+		
 
 		jQuery(function (){
 			d = new Date();

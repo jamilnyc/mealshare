@@ -40,9 +40,42 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     MealShareApp.loadUserDetailsFromResponse = function(data) {
         var fullName = data.user_data.first_name + ' ' + data.user_data.last_name;
         var userId = data.user_data.user_id;
+
+        // Load username
         jQuery('#user-info h1').text(fullName);
+
+        // Load image
         var imgSrc = "https://s3.amazonaws.com/dam-mealshare/avatars/" + userId + ".jpg";
         jQuery('#user-info img').attr('src', imgSrc);
+
+        var userPreferences = data.user_data.user_preferences;
+        if (!userPreferences) {
+            return;
+        }
+
+        var favoriteDish = userPreferences.favorite_dish;
+        if (favoriteDish) {
+            jQuery('#favorite-dish-input').val(favoriteDish);
+        }
+
+        var diningPreference = userPreferences.dining_preference;
+        if (diningPreference) {
+            var id = '#pick-up';
+            if (diningPreference == 'Drop Off') {
+                id = '#drop-off';
+            } else if (diningPreference == 'Eat Together') {
+                id = '#eat-together';
+            }
+            jQuery(id).attr('selected', 'selected');
+        }
+
+        var dietaryPreferences = userPreferences.dietary_preferences;
+        if (dietaryPreferences) {
+            dietaryPreferences.forEach(function(preference) {
+                var id = '#' + preference;
+                jQuery(id).prop('checked', true);
+            });
+        }
     };
 
 
