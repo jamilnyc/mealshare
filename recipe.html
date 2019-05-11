@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title> Recipe </title>
-	<link rel="stylesheet" href="html/stylesheet.css">
+	<link rel="stylesheet" href="css/stylesheet.css">
 </head>
 <body>
 	<div class="nav-bar inline">
@@ -25,11 +25,21 @@
 				<h2>Recipe Name</h2>
 			</a>
 			<br>
-			<img src="img/notavail.png"> 
+			<img src="img/loading.gif"> 
 		</div>
 		<div id="recipe-right">
-			<h3>Steps</h3>
-		</div>
+            <h3>About this Recipe</h3>
+            <table id="recipe-properties">
+                <tr><td>Vegan</td><td id="is-vegan-value">-</td></tr>
+                <tr><td>Vegetarian</td><td id="is-vegetarian-value">-</td></tr>
+                <tr><td>Dairy Free</td><td id="is-dairy-free-value">-</td></tr>
+                <tr><td>Gluten Free</td><td id="is-gluten-free-value">-</td></tr>
+                <tr><td>Healthy</td><td id="is-healthy-value">-</td></tr>
+                <tr><td>Affordable</td><td id="is-cheap-value">-</td></tr>
+            </table>
+            <br />
+            <a id='recipe-url'></a>
+        </div>
 	</div>
 
 	<script src="js/jquery-3.3.1.min.js"></script>

@@ -260,6 +260,7 @@ jQuery('#add-member-button').on('click', function() {
         console.log(data);
         if (data.statusCode == 200) {
             alert('User ' + userId + ' successfully added to group ' + groupId);
+            window.location.reload();
         }
     };
     MealShareApp.addMemberToGroup(userId, groupId, callback);

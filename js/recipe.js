@@ -18,7 +18,6 @@ var MealShareApp = window.MealShareApp || {};
             var newClientCredentials = MealShareApp.getNewClientCredentials()
             MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
             MealShareApp.apiClient.recipesPost({}, bodyParams, {}).then(function(result) {
-                // TODO: Check response structure
                 console.log(result);
                 var recipes = result.data.recipes;
                 if (recipes.length <= 0) {
@@ -31,6 +30,7 @@ var MealShareApp = window.MealShareApp || {};
                	jQuery("#recipe-left img").attr('src', recipe.image); 
                 jQuery("#recipe-left a").attr('href', recipe.url);
 
+                MealShareApp.loadRecipeProperties(recipe);
             }).catch(function(result) {
                 console.error('ERROR: Unable to load recipe');
                 console.log(result);
@@ -39,5 +39,31 @@ var MealShareApp = window.MealShareApp || {};
                 }
             });
         }); 
+    };
+
+    MealShareApp.loadRecipeProperties = function (recipe) {
+        var mapping = {
+            'vegan': '#is-vegan-value',
+            'vegetarian': '#is-vegetarian-value',
+            'dairyFree': '#is-dairy-free-value',
+            'glutenFree': '#is-gluten-free-value',
+            'healthy': '#is-healthy-value',
+            'cheap': '#is-cheap-value'
+        };
+
+        var trueValue = '<span class="recipe-true-property">✔</span>';
+        var falseValue = '<span class="recipe-false-property">✖</span>';
+        for (var property in mapping) {
+            if (mapping.hasOwnProperty(property)) {
+                // e.g., Is this vegan?
+                var cellValue = recipe[property] ? trueValue : falseValue;
+                var id = mapping[property];
+                jQuery(id).html(cellValue);
+            }
+        }
+
+
+        jQuery('#recipe-url').html('Show me how to make it!');
+        jQuery('#recipe-url').attr('href', recipe.url);
     };
 })();

@@ -155,6 +155,7 @@
 }
 
 #next-meal-map {
+	height: 400px;
 	width: 58%;
 	float: left;
 	text-align: center;
@@ -355,6 +356,7 @@
 #recipe-left {
 	width: 48%;
 	float: left;
+	padding-left: 10px;
 }
 
 #recipe-right {
@@ -442,4 +444,39 @@ body {
 	margin: 0px;
 }
 
+#recipe-properties {
+	font-size: 24px;
+	text-align: center;
+	font-family: Arial;
+}
 
+.recipe-true-property {
+	color: green;
+}
+
+.recipe-false-property {
+	color: red;
+}
+
+a {
+	font-size: 24px;
+	font-family: Arial;
+	text-decoration: none;
+}
+
+a:link {
+	color: #35cc35;	
+}
+
+a:visited {
+	color: #269961;
+}
+
+a:hover {
+	color: #6bff77;
+}
+
+#recipe-right h3 {
+	font-size: 36px;
+	font-family: Arial;
+}
