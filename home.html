@@ -9,7 +9,8 @@
 		<div id="nav-bar-buffer">
 		</div>
 		<div class="search-bar">
-			<img src="img/create_group.png" onclick="location.href='#'"> 
+			<input  id="create-group-name" placeholder="Enter new group name">
+    		<button id="create-group-button">Create Group</button>
 		</div>
 		<div class="logo">
 			<h1>mealShare</h1>
@@ -126,6 +127,16 @@
         $("#cal-icon").on("click", function () {
         	MealShareApp.goToCalendar();
         });
+
+        jQuery('#create-group-button').on('click', function() {
+            console.log('button clicked');
+            var groupName = jQuery('#create-group-name').val();
+            MealShareApp.createGroup(groupName, function(data) {
+                var groupId = data.group_id
+                var url = '/group.html?groupId=' + groupId;
+                window.location = url;
+            });
+           });
 
     </script>
 </body>
