@@ -495,3 +495,7 @@ a:hover {
     background-color: #e5ffe2;
     font-family: Arial;
 }
+
+#no-map {
+	height: 300px;
+}

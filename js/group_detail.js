@@ -33,14 +33,17 @@ var MealShareApp = window.MealShareApp || {};
                 
                 // Load Group Name
                 var groupName = result.data.group_data.group_name;
-                $('#group-name h3').text(groupName);
+                $('#group-name h3').text('Your Group: ' + groupName);
                 
                 // Load Next Event
                 var events = result.data.group_data.events;
                 var d = new Date();
+                var nextEventExists = false;
                 if (events.length > 0) {
+                    // Get the event furthest out
                     var event = events[events.length - 1];
                     var date = new Date(event.event_timestamp * 1000);
+
                     for (var i = 0; i < events.length; i++) {
                         event = events[events.length - 1 - i]
                         var date = new Date(event.event_timestamp * 1000);
@@ -57,12 +60,24 @@ var MealShareApp = window.MealShareApp || {};
                                 jQuery('#next-meal-time').text(date.toLocaleTimeString('default'));
                                 jQuery('#next-meal-location').text(event.location);
                                 jQuery('#next-meal-food').text('Food: ' + event.recipe_name);
-                                groupId = event.group_id
-                                break
+                                groupId = event.group_id;
+                                nextEventExists = true;
+                                break;
                              }
                     }
 
-                    MealShareApp.initializeMap('next-meal-map', event.event_name, event.location);
+                    if (nextEventExists) {
+                        MealShareApp.initializeMap('next-meal-map', event.event_name, event.location);
+                    }
+                }
+
+                if (!nextEventExists) {
+                    jQuery('#next-meal-name').text('No upcoming events!');
+                    jQuery('#next-meal-date').text('Pick a date');
+                    jQuery('#next-meal-time').text('Choose a time');
+                    jQuery('#next-meal-location').text('Find a place');
+                    jQuery('#next-meal-food').text('And create it below!');
+                    jQuery('#next-meal-map').html('<img id="no-map" src="img/no-map.jpg" />');
                 }
 
 
@@ -283,20 +298,19 @@ jQuery('#add-member-button').on('click', function() {
 jQuery('#create-event-button').on('click', function() {
     var groupId = MealShareApp.getCurrentGroupId();
     
-    var event_date =  new Date(jQuery('#create-event-date').val());
-    var event_time = jQuery('#create-event-time').val().split(":");
+    var event_date =  jQuery('#create-event-date').val();
+    var event_time = jQuery('#create-event-time').val();
+    var cDate = new Date(event_date + " " + event_time);
     
-    var cDate = new Date(event_date.getFullYear(), event_date.getMonth(), event_date.getDate(),
-                          event_time[0], event_time[1]);
-    
-    var timestamp = (Date.parse(cDate))/1000;
+    var timestamp = cDate.getTime()/1000;
     var eventName = jQuery('#create-event-name').val();
     var eventLocation = jQuery('#create-event-location').val();
     var food = jQuery('#create-event-food').val();
     var callback = function(data) {
         console.log(data);
         if (data.statusCode == 200) {
-            alert('event created successfully');
+            alert('Event Created Successfully!');
+            window.location.reload();
         }
     };
     MealShareApp.createEvent(groupId, timestamp, eventLocation, food, eventName, callback);
