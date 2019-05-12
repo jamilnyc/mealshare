@@ -486,3 +486,12 @@ a:hover {
 	font-size: 14px;
 	color: green;
 }
+
+#message-container {
+	text-align: left;
+}
+
+#message-container p {
+    background-color: #e5ffe2;
+    font-family: Arial;
+}

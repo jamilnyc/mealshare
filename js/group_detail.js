@@ -118,7 +118,7 @@ var MealShareApp = window.MealShareApp || {};
             recentMessages.forEach(function(message) {
                 var date = new Date(message.message_timestamp * 1000)
                 var dateString = date.toLocaleDateString('default') + ' @ ' + date.toLocaleTimeString('default');
-                var messageContent = message.user_id + ' ' + dateString + ': ' + message.message_body;
+                var messageContent = "<b>" + message.user_id + "</b>" + ' ' + dateString + ': ' + message.message_body;
                 console.log(messageContent);
                 MealShareApp.messageContainer.prepend("<p>" + messageContent + "</p>");
             });
