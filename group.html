@@ -9,7 +9,8 @@
 		<div id="nav-bar-buffer">
 		</div>
 		<div class="search-bar">
-			<img src="img/create_group.png" onclick="location.href='#'"> 
+			<input type="text" id="add-member-name" placeholder="Member ID to add"><br>
+			<button id="add-member-button">Add Member</button>
 		</div>
 		<div class="logo">
 			<h1>mealShare</h1>
@@ -38,6 +39,14 @@
 					<p id="next-meal-time">Time</p>
 					<p id="next-meal-location">Location</p>
                     <p id="next-meal-food"></p>
+                    <br><br>
+                    <h3>New Event</h3>
+					<input type="text" placeholder="Event Name (optional)" id="create-event-name"><br>
+					<input type="text" placeholder="Event Location" id="create-event-location"><br>
+					<input type="text" placeholder="Food" id="create-event-food"><br>
+					<input type="date" placeholder="Event Date/Time" id="create-event-date"><br>
+                    <input type="time" placeholder="Event Date/Time" id="create-event-time"><br>
+					<button id="create-event-button">Create Event</button>
 				</div>
 				<!-- Google Maps Container -->
 				<div id="next-meal-map">
@@ -94,22 +103,6 @@
    		    </div>		
     	</div> 
 	</div>
-
-	<div>
-		<!-- Form for adding members -->
-		<input type="text" id="add-member-name" placeholder="Member ID to add"><br>
-		<button id="add-member-button">Add Member</button>
-	</div>
-	<br><br>
-	<div>
-		<!-- Form for creating events -->
-		<input type="number" placeholder="Event Date/Time" id="create-event-timestamp"><br>
-		<input type="text" placeholder="Event Name (optional)" id="create-event-name"><br>
-		<input type="text" placeholder="Event Location" id="create-event-location"><br>
-		<input type="text" placeholder="Food" id="create-event-food"><br>
-		<button id="create-event-button">Create Event</button>
-	</div>
-    
     
     <script src="js/jquery-3.3.1.min.js"></script>
 

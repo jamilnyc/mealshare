@@ -93,21 +93,35 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
         //event
         var events = result.data.events;
+        var d = new Date();
                 if (events.length > 0) {
                     console.log('Loading Event'); 
-                    var event = events[0];
-                    jQuery('#next-meal-name').text('Next Meal: ' + event.event_name);
+                    var event = events[events.length - 1];
                     var date = new Date(event.event_timestamp * 1000);
-                    jQuery('#next-meal-date').text(date.toLocaleDateString('default'));
-                    jQuery('#next-meal-time').text(date.toLocaleTimeString('default'));
-                    jQuery('#next-meal-location').text(event.location);
-                    jQuery('#next-meal-food').text('Food: ' + event.recipe_name);
-
+                    for (var i = 0; i < events.length; i++) {
+                        event = events[events.length - 1 - i]
+                        var date = new Date(event.event_timestamp * 1000);
+                        console.log(date)
+                        if ( (d.getFullYear() == date.getFullYear() &&
+                              d.getMonth() == date.getMonth() && 
+                              d.getDate() < date.getDate()) || 
+                             (d.getFullYear() == date.getFullYear() &&
+                              d.getMonth() < date.getMonth()) ||
+                             (d.getFullYear() < date.getFullYear())) {
+                                jQuery('#next-meal-name').text('Next Meal: ' + event.event_name);
+                                var date = new Date(event.event_timestamp * 1000);
+                                jQuery('#next-meal-date').text(date.toLocaleDateString('default'));
+                                jQuery('#next-meal-time').text(date.toLocaleTimeString('default'));
+                                jQuery('#next-meal-location').text(event.location);
+                                jQuery('#next-meal-food').text('Food: ' + event.recipe_name);
+                                groupId = event.group_id
+                                break
+                             }
+                    }
                     // Load Event Map
                     MealShareApp.initializeMap('home-map', event.event_name, event.location);
                 }
 
-        var groupId = events[0].group_id;
         var groups = result.data.groups;
         console.log(groups[0].group_name);
         for (var i=0; i < groups.length; i++) {
@@ -124,6 +138,25 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             var cell = '#d-day-'+ (i+1);
             jQuery(header).text(daysInWeek[(d.getDay() % 7)]);
             jQuery(cell).text(d.getDate());
+            
+            
+            for(var j= 0; j < events.length; j++) {
+                var event = events[j];
+                var date = new Date(event.event_timestamp * 1000);
+                console.log(event)
+                
+                if (d.getFullYear() == date.getFullYear() &&
+                    d.getMonth() == date.getMonth() && 
+                    d.getDate() == date.getDate()) {
+                    jQuery(cell).attr('class', 'shaded')
+                }
+                
+            }
+            
+            
+
+
+
             d.setDate(d.getDate() + 1);
         }
 
@@ -211,15 +244,30 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
                 //events
                 var events = result.data.events;
+                var d = new Date();
                 if (events.length > 0) {
                     console.log('Loading Event'); 
-                    var event = events[0];
-                    jQuery('#next-meal-name').text('Next Meal: ' + event.event_name);
+                    var event = events[events.length - 1];
                     var date = new Date(event.event_timestamp * 1000);
-                    jQuery('#next-meal-date').text(date.toLocaleDateString('default'));
-                    jQuery('#next-meal-time').text(date.toLocaleTimeString('default'));
-                    jQuery('#next-meal-location').text(event.location);
-                    jQuery('#next-meal-food').text('Food: ' + event.recipe_name);
+                    for (var i = 0; i < events.length; i++) {
+                        event = events[events.length - 1 - i]
+                        var date = new Date(event.event_timestamp * 1000);
+                        if ( (d.getFullYear() == date.getFullYear() &&
+                              d.getMonth() == date.getMonth() && 
+                              d.getDate() < date.getDate()) || 
+                             (d.getFullYear() == date.getFullYear() &&
+                              d.getMonth() < date.getMonth()) ||
+                             (d.getFullYear() < date.getFullYear())) {
+                                jQuery('#next-meal-name').text('Next Meal: ' + event.event_name);
+                                var date = new Date(event.event_timestamp * 1000);
+                                jQuery('#next-meal-date').text(date.toLocaleDateString('default'));
+                                jQuery('#next-meal-time').text(date.toLocaleTimeString('default'));
+                                jQuery('#next-meal-location').text(event.location);
+                                jQuery('#next-meal-food').text('Food: ' + event.recipe_name);
+                                groupId = event.group_id
+                                break
+                             }
+                    }
                 }
 
                 var rowCount = jQuery('#calendar tr').length - 1;
