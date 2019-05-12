@@ -33,8 +33,7 @@
 			</div>
 		</div>
 		<div id="pref-right">
-			<h3>Weekly Availability</h3>
-			<h5 id="availability-month">hello</h5>
+			<h3 id="availability-month">hello</he>
 			<table id="profile-avail">
 				<tr>
 					<th id="h-day-1">Sun</th>
@@ -121,76 +120,6 @@
 			for (var i=0; i < daysInWeek.length; i++) {		   
 			    var header = '#h-day-'+ (i+1);
 			    jQuery(header).text(daysInWeek[i]);
-			}
-		});
-
-		$("#d-day-1").on("click", function () {
-			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
-				if ($("#d-day-1").attr('class') == 'clear') {
-					$("#d-day-1").attr('class', 'shaded');
-				} else {
-					$("#d-day-1").attr('class', 'clear');
-				}
-			}
-		});
-
-		$("#d-day-2").on("click", function () {
-			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
-				if ($("#d-day-2").attr('class') == 'clear') {
-					$("#d-day-2").attr('class', 'shaded');
-				} else {
-					$("#d-day-2").attr('class', 'clear');
-				}
-			}
-		});
-
-		$("#d-day-3").on("click", function () {
-			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
-				if ($("#d-day-3").attr('class') == 'clear') {
-					$("#d-day-3").attr('class', 'shaded');
-				} else {
-					$("#d-day-3").attr('class', 'clear');
-				}
-			}
-		});
-
-		$("#d-day-4").on("click", function () {
-			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
-				if ($("#d-day-4").attr('class') == 'clear') {
-					$("#d-day-4").attr('class', 'shaded');
-				} else {
-					$("#d-day-4").attr('class', 'clear');
-				}
-			}
-		});
-
-		$("#d-day-5").on("click", function () {
-			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
-				if ($("#d-day-5").attr('class') == 'clear') {
-					$("#d-day-5").attr('class', 'shaded');
-				} else {
-					$("#d-day-5").attr('class', 'clear');
-				}
-			}
-		});
-
-		$("#d-day-6").on("click", function () {
-			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
-				if ($("#d-day-6").attr('class') == 'clear') {
-					$("#d-day-6").attr('class', 'shaded');
-				} else {
-					$("#d-day-6").attr('class', 'clear');
-				}
-			}
-		});
-
-		$("#d-day-7").on("click", function () {
-			if ($("#pref-edit-option-save").attr('class') != 'hidden') {
-				if ($("#d-day-7").attr('class') == 'clear') {
-					$("#d-day-7").attr('class', 'shaded');
-				} else {
-					$("#d-day-7").attr('class', 'clear');
-				}
 			}
 		});
 
