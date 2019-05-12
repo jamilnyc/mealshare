@@ -79,7 +79,6 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         var d = new Date();
         var events = data.events;
         console.log(events);
-        console.log("hello 2")
         jQuery('#availability-month').text(mS[d.getMonth()])
         if (events.length > 0) {    
             for (var i=0; i < daysInWeek.length; i++) {        
@@ -92,7 +91,7 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                 for(var j= 0; j < events.length; j++) {
                     var event = events[j];
                     var date = new Date(event.event_timestamp * 1000);
-                    console.log(event)
+                
                     
                     if (d.getFullYear() == date.getFullYear() &&
                         d.getMonth() == date.getMonth() && 
@@ -294,6 +293,12 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                                 jQuery('#next-meal-location').text(event.location);
                                 jQuery('#next-meal-food').text('Food: ' + event.recipe_name);
                                 groupId = event.group_id
+                                var groups = result.data.groups;
+                                for (var j=0; j < groups.length; j++) {
+                                    if (groups[j].group_id == groupId) {
+                                    jQuery('#next-meal-group').text(groups[j].group_name);
+                                    }   
+                                }
                                 break
                              }
                     }
@@ -339,5 +344,52 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             });
         }); 
     };
+
+    MealShareApp.showEvent = function (day, month, year) {
+        MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
+            var bodyParams = {
+                'op': 'home'
+            };
+
+            var newClientCredentials = MealShareApp.getNewClientCredentials()
+            MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
+            MealShareApp.apiClient.usersPost({}, bodyParams, {}).then(function(result) {
+                console.log(result.data);
+
+                var events = result.data.events;
+                console.log(day)
+                for (var i = 0; i < events.length; i++) {
+                    event = events[events.length - 1 - i]
+                    var date = new Date(event.event_timestamp * 1000);
+                    if (date.getFullYear() == year &&
+                        date.getMonth() == month &&
+                        date.getDate() == day) {
+                        jQuery('#next-meal-name').text('Next Meal: ' + event.event_name);
+                        var date = new Date(event.event_timestamp * 1000);
+                        jQuery('#next-meal-date').text(date.toLocaleDateString('default'));
+                        jQuery('#next-meal-time').text(date.toLocaleTimeString('default'));
+                        jQuery('#next-meal-location').text(event.location);
+                        jQuery('#next-meal-food').text('Food: ' + event.recipe_name);
+                        groupId = event.group_id
+                        var groups = result.data.groups;
+                        for (var j=0; j < groups.length; j++) {
+                            if (groups[j].group_id == groupId) {
+                            jQuery('#next-meal-group').text(groups[j].group_name);
+                            }   
+                        }
+                    }
+                }
+
+            }).catch(function(result) {
+                console.error('ERROR: Unable to load user data');
+                console.log(result);
+                if (result.status === 401 || result.status === 403) {
+                    alert('You are not authorized to perform this action!');
+                }
+        });
+        
+    });
+}
+
 
 })();

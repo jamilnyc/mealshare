@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		<div id="pref-right">
-			<h3 id="availability-month">hello</he>
+			<h3 id="availability-month">hello</h3>
 			<table id="profile-avail">
 				<tr>
 					<th id="h-day-1">Sun</th>
@@ -111,9 +111,6 @@
 
 	<script type="text/javascript">
 
-
-		
-
 		jQuery(function (){
 			d = new Date();
 			jQuery('#availability-month').text(mS[d.getMonth()])	
@@ -122,6 +119,8 @@
 			    jQuery(header).text(daysInWeek[i]);
 			}
 		});
+
+		
 
 
 	</script>
@@ -168,6 +167,8 @@
         $("#cal-icon").on("click", function () {
         	MealShareApp.goToCalendar();
         })
+
+
     </script>
 </body>
 </html>

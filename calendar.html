@@ -86,7 +86,7 @@
 				$("#calendar").append($("<tr id=tr-"+ count + "></tr>"));
 				for (var i=0; i < 7; i++) {
 					d.setDate(d.getDate() - day + i);
-					$("#tr-"+ count).append($("<td class='day' id=td-" + ((7*(count-1))+(i+1)) + ">" + d.getDate() + "</td>"))
+					$("#tr-"+ count).append($("<td class='day' id=td-" + ((7*(count-1))+(i+1)) + " onclick='showEvent(" + ((7*(count-1))+(i+1)) + ")' >" + d.getDate() + "</td>"))
 					d.setDate(d.getDate() + day - i);
 				}
 				count++;
@@ -99,7 +99,7 @@
 				for (var i=0; i < 7; i++) {
 					console.log(count * (i+1))
 					d.setDate(d.getDate() - day + i);
-					$("#tr-"+ count).append($("<td class='day' id=td-" + ((7*(count-1))+(i+1)) + ">" + d.getDate() + "</td>"))
+					$("#tr-"+ count).append($("<td class='day' id=td-" + ((7*(count-1))+(i+1)) + " onclick='showEvent(" + (7*(count-1))+(i+1) + ")'>" + d.getDate() + "</td>"))
 					d.setDate(d.getDate() + day - i);
 				}
 			}
@@ -115,7 +115,33 @@
 
         $("#cal-icon").on("click", function () {
         	MealShareApp.goToCalendar();
-        })
+        });
+
+        function showEvent(num) {
+			if ($("#td-" + num).attr('class') == 'day shaded'){
+				var day = $("#td-" + num).text()
+
+				var monYear = $("#cal-left h2").text().split(" ")
+				var month = mS.indexOf(monYear[0])
+				var year = monYear[1]
+				if (num < 6 && day > 6) {
+					month = (month - 1) % 12
+					if(month == 12) { 
+						year = year - 1 
+					}
+				}
+
+				if (num < 14 && day < 7) {
+					month = (month + 1 ) % 12
+					if (month == 1) {
+						year = year + 1
+					}
+				}
+
+				
+				MealShareApp.showEvent(day, month, year)
+			}
+        }
 	</script>
 </body>
 </html>
