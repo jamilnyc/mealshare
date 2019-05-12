@@ -45,13 +45,13 @@
 					<th id="h-day-6">Fri</th>
 					<th id="h-day-7">Sat</th>
 				</tr>
-					<td id="d-day-1" class="clear"></td>
-					<td id="d-day-2" class="clear"></td>
-					<td id="d-day-3" class="clear"></td>
-					<td id="d-day-4" class="clear"></td>
-					<td id="d-day-5" class="clear"></td>
-					<td id="d-day-6" class="clear"></td>
-					<td id="d-day-7" class="clear"></td>
+					<td id="d-day-1"></td>
+					<td id="d-day-2"></td>
+					<td id="d-day-3"></td>
+					<td id="d-day-4"></td>
+					<td id="d-day-5"></td>
+					<td id="d-day-6"></td>
+					<td id="d-day-7"></td>
 			</table>
 			<div id="favorite-dish">
 				<h3>Favorite Dish:</h3>
@@ -120,7 +120,7 @@
 			jQuery('#availability-month').text(mS[d.getMonth()])	
 			for (var i=0; i < daysInWeek.length; i++) {		   
 			    var header = '#h-day-'+ (i+1);
-			    jQuery(header).text(daysInWeek[0]);
+			    jQuery(header).text(daysInWeek[i]);
 			}
 		});
 

@@ -11,14 +11,13 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
         MealShareApp.useToken(function (token, accessKey, secretKey, sessionToken) {
             var bodyParams = {
-                'op': 'read',
-                'user_id': userId
+                'op': 'home'
             };
 
             var newClientCredentials = MealShareApp.getNewClientCredentials()
             MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
             MealShareApp.apiClient.usersPost({}, bodyParams, {}).then(function(result) {
-                console.log(result.data);       
+                console.log(result.data);      
                 MealShareApp.loadUserDetailsFromResponse(result.data); 
            }).catch(function(result) {
                 console.error('ERROR: Unable to load user data');
@@ -76,6 +75,36 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                 jQuery(id).prop('checked', true);
             });
         }
+
+        var d = new Date();
+        var events = data.events;
+        console.log(events);
+        console.log("hello 2")
+        jQuery('#availability-month').text(mS[d.getMonth()])
+        if (events.length > 0) {    
+            for (var i=0; i < daysInWeek.length; i++) {        
+                var header = '#h-day-'+ (i+1);
+                var cell = '#d-day-'+ (i+1);
+                jQuery(header).text(daysInWeek[(d.getDay() % 7)]);
+                jQuery(cell).text(d.getDate());
+            
+                
+                for(var j= 0; j < events.length; j++) {
+                    var event = events[j];
+                    var date = new Date(event.event_timestamp * 1000);
+                    console.log(event)
+                    
+                    if (d.getFullYear() == date.getFullYear() &&
+                        d.getMonth() == date.getMonth() && 
+                        d.getDate() == date.getDate()) {
+                        jQuery(cell).attr('class', 'shaded')
+                    }
+                    
+                }
+                d.setDate(d.getDate() + 1);
+            }
+        }
+       
     };
 
 
