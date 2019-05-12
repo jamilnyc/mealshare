@@ -117,101 +117,116 @@ daysInWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             var newClientCredentials = MealShareApp.getNewClientCredentials()
             MealShareApp.apiClient = apigClientFactory.newClient(newClientCredentials);
             MealShareApp.apiClient.usersPost({}, bodyParams, {}).then(function(result) {
-        console.log(result.data);                
-        
-        //event
-        var events = result.data.events;
-        var d = new Date();
-                if (events.length > 0) {
-                    console.log('Loading Event'); 
-                    var event = events[events.length - 1];
+            console.log(result.data);                
+            
+            //event
+            var groupId = null;
+            var events = result.data.events;
+
+            var d = new Date();
+            var eventFound = false;
+            if (events.length > 0) {
+                console.log('Loading Event'); 
+                var event = events[events.length - 1];
+                var date = new Date(event.event_timestamp * 1000);
+                for (var i = 0; i < events.length; i++) {
+                    event = events[events.length - 1 - i]
                     var date = new Date(event.event_timestamp * 1000);
-                    for (var i = 0; i < events.length; i++) {
-                        event = events[events.length - 1 - i]
-                        var date = new Date(event.event_timestamp * 1000);
-                        console.log(date)
-                        if ( (d.getFullYear() == date.getFullYear() &&
-                              d.getMonth() == date.getMonth() && 
-                              d.getDate() < date.getDate()) || 
-                             (d.getFullYear() == date.getFullYear() &&
-                              d.getMonth() < date.getMonth()) ||
-                             (d.getFullYear() < date.getFullYear())) {
-                                jQuery('#next-meal-name').text('Next Meal: ' + event.event_name);
-                                var date = new Date(event.event_timestamp * 1000);
-                                jQuery('#next-meal-date').text(date.toLocaleDateString('default'));
-                                jQuery('#next-meal-time').text(date.toLocaleTimeString('default'));
-                                jQuery('#next-meal-location').text(event.location);
-                                jQuery('#next-meal-food').text('Food: ' + event.recipe_name);
-                                groupId = event.group_id
-                                break
-                             }
-                    }
-                    // Load Event Map
+                    console.log(date)
+                    if ( (d.getFullYear() == date.getFullYear() &&
+                          d.getMonth() == date.getMonth() && 
+                          d.getDate() < date.getDate()) || 
+                         (d.getFullYear() == date.getFullYear() &&
+                          d.getMonth() < date.getMonth()) ||
+                         (d.getFullYear() < date.getFullYear())) {
+                            jQuery('#next-meal-name').text('Next Meal: ' + event.event_name);
+                            var date = new Date(event.event_timestamp * 1000);
+                            jQuery('#next-meal-date').text(date.toLocaleDateString('default'));
+                            jQuery('#next-meal-time').text(date.toLocaleTimeString('default'));
+                            jQuery('#next-meal-location').text(event.location);
+                            jQuery('#next-meal-food').text('Food: ' + event.recipe_name);
+                            groupId = event.group_id;
+                            eventFound = true;
+                            break
+                         }
+                }
+                // Load Event Map
+                if (eventFound) {
                     MealShareApp.initializeMap('home-map', event.event_name, event.location);
                 }
+            }
 
-        var groups = result.data.groups;
-        console.log(groups[0].group_name);
-        for (var i=0; i < groups.length; i++) {
-            if (groups[i].group_id == groupId) {
-            jQuery('#next-meal-group').text(groups[i].group_name);
-            }   
-        }
-
-        //availability 
-        var d = new Date();
-        jQuery('#availability-month').text(mS[d.getMonth()])    
-        for (var i=0; i < daysInWeek.length; i++) {        
-            var header = '#h-day-'+ (i+1);
-            var cell = '#d-day-'+ (i+1);
-            jQuery(header).text(daysInWeek[(d.getDay() % 7)]);
-            jQuery(cell).text(d.getDate());
-            
-            
-            for(var j= 0; j < events.length; j++) {
-                var event = events[j];
-                var date = new Date(event.event_timestamp * 1000);
-                console.log(event)
-                
-                if (d.getFullYear() == date.getFullYear() &&
-                    d.getMonth() == date.getMonth() && 
-                    d.getDate() == date.getDate()) {
-                    jQuery(cell).attr('class', 'shaded')
+            if (!eventFound) {
+                    jQuery('#next-meal-name').text('No upcoming events!');
+                    jQuery('#next-meal-date').text('Check out your groups');
+                    jQuery('#next-meal-time').text('And create an event!');
+                    jQuery('#next-meal-location').text('');
+                    jQuery('#next-meal-food').text('');
+                    jQuery('#home-map').html('<img id="no-map" src="img/no-map.jpg" />');
                 }
+
+            var groups = result.data.groups;
+            console.log(groups[0].group_name);
+            for (var i=0; i < groups.length; i++) {
+                if (groups[i].group_id == groupId) {
+                jQuery('#next-meal-group').text(groups[i].group_name);
+                }   
+            }
+
+            //availability 
+            var d = new Date();
+            jQuery('#availability-month').text(mS[d.getMonth()])    
+            for (var i=0; i < daysInWeek.length; i++) {        
+                var header = '#h-day-'+ (i+1);
+                var cell = '#d-day-'+ (i+1);
+                jQuery(header).text(daysInWeek[(d.getDay() % 7)]);
+                jQuery(cell).text(d.getDate());
                 
-            }
-            
-            
-
-
-
-            d.setDate(d.getDate() + 1);
-        }
-
-        //groups
-        // hard 8 because there are 8 groups that show on homepage
-        for (var i=0; i < 8; i++) {
-            var group_id = '#group-' + (i+1);
-            if (i < groups.length) {    
-                // jQuery(group_id + ' p').text(groups[i].group_name);
-                jQuery(group_id)[0].innerHTML = '';
-                jQuery(group_id).append('<p>' + groups[i].group_name + '</p>');
-                var url = '/group.html?groupId=' + groups[i].group_id;
-                jQuery(group_id).append('<a href="' + url + '"><img src="img/group.png"></a>');
-            } else {
-                jQuery(group_id).hide();
-            }
-        }
+                
+                for(var j= 0; j < events.length; j++) {
+                    var event = events[j];
+                    var date = new Date(event.event_timestamp * 1000);
+                    console.log(event)
                     
-        
-        }).catch(function(result) {
-                console.error('ERROR: Unable to load user data');
-                console.log(result);
-                if (result.status === 401 || result.status === 403) {
-                    alert('You are not authorized to perform this action!');
+                    if (d.getFullYear() == date.getFullYear() &&
+                        d.getMonth() == date.getMonth() && 
+                        d.getDate() == date.getDate()) {
+                        jQuery(cell).attr('class', 'shaded')
+                    }
+                    
                 }
-            });
-        }); 
+                
+                
+
+
+
+                d.setDate(d.getDate() + 1);
+            }
+
+            //groups
+            // hard 8 because there are 8 groups that show on homepage
+            for (var i=0; i < 8; i++) {
+                var group_id = '#group-' + (i+1);
+                if (i < groups.length) {    
+                    // jQuery(group_id + ' p').text(groups[i].group_name);
+                    jQuery(group_id)[0].innerHTML = '';
+                    jQuery(group_id).append('<p>' + groups[i].group_name + '</p>');
+                    var url = '/group.html?groupId=' + groups[i].group_id;
+                    jQuery(group_id).append('<a href="' + url + '"><img src="img/group.png"></a>');
+                } else {
+                    jQuery(group_id).hide();
+                }
+            }
+                        
+            
+            }).catch(function(result) {
+                    console.error('ERROR: Unable to load user data');
+                    console.log(result);
+                    if (result.status === 401 || result.status === 403) {
+                        alert('You are not authorized to perform this action!');
+                    }
+                });
+            }); 
     };
 
     MealShareApp.goToProfile = function () {
