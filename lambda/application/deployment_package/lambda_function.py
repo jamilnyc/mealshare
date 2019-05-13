@@ -13,11 +13,13 @@ from api_groups import GroupsApi
 from api_group_chat import GroupChatApi
 from api_user_preferences import UserPreferencesApi
 from api_users import UsersApi
+from api_recipes import RecipesApi
 
 groupsApi = GroupsApi()
 groupChatApi = GroupChatApi()
 userPreferencesApi = UserPreferencesApi()
 usersApi = UsersApi()
+recipesApi = RecipesApi()
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -67,6 +69,12 @@ def dispatch_users(event, context):
         return usersApi.post(event)
     return {}
 
+def dispatch_recipes(event, context):
+    http_method = event['httpMethod']
+    if http_method == 'POST':
+        return recipesApi.post(event)
+    return {}
+
 def mealshare_dispatch(event, context):
     """
     Dispatches each request based on the resource it is attempting to access.
@@ -81,6 +89,8 @@ def mealshare_dispatch(event, context):
         return dispatch_user_preferences(event, context)
     elif resource == '/users':
         return dispatch_users(event, context)
+    elif resource == '/recipes':
+        return dispatch_recipes(event, context)
     return {}
 
 def lambda_handler(event, context):
@@ -89,6 +99,7 @@ def lambda_handler(event, context):
     
     response = mealshare_dispatch(event, context)
     body = json.dumps(response, cls=DecimalEncoder)
+    print(body)
     statusCode = 200
     if 'statusCode' in response:
         statusCode = response['statusCode']

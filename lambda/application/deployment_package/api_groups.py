@@ -45,6 +45,8 @@ class GroupsApi:
             return self.get_events(event)
         if op == 'user_events':
             return self.get_events_by_user_id(event)
+        if op == 'details':
+            return self.get_group_details(event)
         
         return self.get_bad_request('Invalid op field given: {}'.format(op))
         
@@ -57,7 +59,7 @@ class GroupsApi:
 
         # Required field in POST body
         if 'group_name' not in body:
-            return get_bad_request('POST body missing group_name')
+            return self.get_bad_request('POST body missing group_name')
 
         group_name = body['group_name']
         user = self.mealShareUsers.get_user_cognito_data(event)
@@ -233,3 +235,45 @@ class GroupsApi:
             'events': events,
             'user_id': current_user
         }
+        
+    def get_group_details(self, event):
+        """
+        Get all data about a group.
+        """
+        body = event['body']
+        body = json.loads(body)
+
+        required_fields = ['group_id']
+        for f in required_fields:
+            if f not in body:
+                return get_bad_request('POST body missing field {}'.format(f))
+
+        group_id = body['group_id']
+        
+        user = self.mealShareUsers.get_user_cognito_data(event)
+        current_user = user['user_id']
+        
+        # Requesting user must already be a member
+        if not self.mealShareGroups.is_user_in_group(current_user, str(group_id)):
+            return {
+                'statusCode': 401,
+                'statusMessage': 'User {} is not a member of the group ID {}'.format(current_user, group_id),
+                'group_id': group_id
+            }
+        
+        # Check if adding was successful
+        group_data = self.mealShareGroups.get_group_details(group_id)
+        if group_data:
+            return {
+                'statusCode': 200,
+                'statusMessage': 'SUCCESS!',
+                'group_id': group_id,
+                'group_data': group_data
+            }
+        else:
+            return {
+                'statusCode': 500,
+                'statusMessage': 'FAILED to get group details',
+                'group_id': group_id,
+                'group_data': {}
+            }

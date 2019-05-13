@@ -48,7 +48,10 @@ class MealShareUsers:
             if 'Item' in response:
                 item = response['Item']
                 if 'user_id' in item and item['user_id'] == user_id:
-                    return item
+                    data = item
+                    data['cooking_ability'] = int(data['cooking_ability']) if 'cooking_ability' in data else 1
+                    data['price_range'] = int(data['price_range']) if 'price_range' in data else 1
+                    return data
         except ClientError as e:
             print('ERROR retrieving user preferences for user {}'.format(user_id))
             print(e.response['Error']['message'])
@@ -67,10 +70,12 @@ class MealShareUsers:
             if 'Item' in response:
                 item = response['Item']
                 if 'user_id' in item and item['user_id'] == user_id:
-                    return item
+                    data = item
+                    data['user_preferences'] = self.get_user_preferences(user_id)
+                    return data
         except ClientError as e:
             print('ERROR getting user data for user {}'.format(user_id))
-            print(e.response['Error']['message'])
+            print(e.response['Error'])
 
         return False
 

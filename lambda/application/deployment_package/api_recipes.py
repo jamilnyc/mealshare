@@ -16,7 +16,6 @@ class RecipesApi:
         }
     
     def post(self, event):
-        # Create a group and add the creating user
         body = None
         if 'body' in event:
             body = event['body']
@@ -30,12 +29,38 @@ class RecipesApi:
         
         if op == 'recommend':
             return self.get_recommended_recipes(event)
+        if op == 'read':
+            return self.get_recipe_by_id(event)
         
         return self.get_bad_request('Invalid op field given: {}'.format(op))
     
     def get_recommended_recipes(self, event):
-        recipes = self.mealShareRecipes.search_vegan(limit=5)
+        body = event['body']
+        body = json.loads(body)
+        limit = body['limit'] if 'limit' in body else 5
+        recipes = self.mealShareRecipes.get_random_recipes(field_name='vegetarian', limit=limit)
         
+        if recipes:
+            return {
+                'statusCode': 200,
+                'recipes': recipes
+            }
+        else:
+            return {
+                'statusCode': 404,
+                'recipes': [],
+                'statusMessage': 'No recipes found'
+            }
+            
+    def get_recipe_by_id(self, event):
+        body = event['body']
+        body = json.loads(body)
+        
+        if 'recipe_id' not in body:
+            return get_bad_request('POST body missing recipe_id')
+        
+        recipe_id = body['recipe_id']
+        recipes = self.mealShareRecipes.get_recipe_by_id(recipe_id)
         if recipes:
             return {
                 'statusCode': 200,

@@ -10,6 +10,7 @@ from boto3.dynamodb.conditions import Key
 import time
 from decimal import Decimal
 
+
 class MealShareMessages:
     TABLE_NAME = 'mealshare_messages'
     REGION = 'us-east-1'
@@ -31,8 +32,10 @@ class MealShareMessages:
                 ScanIndexForward=False,
                 Limit=limit
             )
-
-            return response['Items']
+            items = response['Items']
+            for item in items:
+                item['message_timestamp'] = float(item['message_timestamp'])
+            return items
         except ClientError as e:
             print('Error reading messages for group {}'.format(group_id))
             print(e.response['Error']['Message'])
@@ -43,7 +46,7 @@ class MealShareMessages:
         """
         Add the given message to the group chat.
         """
-        
+
         # Convert the current timestamp to one compatible with DynamoDB
         now = time.time()
         now = Decimal(str(now))
@@ -66,5 +69,5 @@ class MealShareMessages:
         if 'ResponseMetadata' in response:
             if 'HTTPStatusCode' in response['ResponseMetadata']:
                 if response['ResponseMetadata']['HTTPStatusCode'] == 200:
-                    return True
+                    return item
         return False

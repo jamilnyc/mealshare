@@ -8,6 +8,8 @@ from boto3.dynamodb.conditions import Key
 import time
 from datetime import datetime, timedelta
 
+from messages import MealShareMessages
+
 class MealShareGroups:
     GROUP_TABLE_NAME = 'mealshare_groups'
     MEMBERSHIP_TABLE_NAME = 'mealshare_group_membership'
@@ -15,13 +17,14 @@ class MealShareGroups:
 
     REGION = 'us-east-1'
     SECONDARY_INDEX = 'user_id-group_id-index'
+
     def __init__(self):
         # Initialize clients for DynamoDB
         self.dynamodb = boto3.resource('dynamodb', region_name=self.REGION)
         self.group_table = self.dynamodb.Table(self.GROUP_TABLE_NAME)
         self.membership_table = self.dynamodb.Table(self.MEMBERSHIP_TABLE_NAME)
         self.events_table = self.dynamodb.Table(self.EVENTS_TABLE_NAME)
-    
+
     def get_all_groups(self):
         try:
             response = self.group_table.scan()
@@ -29,6 +32,37 @@ class MealShareGroups:
         except ClientError as e:
             print('ERROR retrieving all groups')
             print(e.response['Error']['Message'])
+
+    def get_group_details(self, group_id, include_users=True, include_events=True, include_messages=True):
+        group_id = str(group_id)
+        expression = Key('group_id').eq(group_id)
+        group_details = {}
+        try:
+            response = self.group_table.query(
+                KeyConditionExpression=expression
+            )
+            if not response['Items'] or len(response['Items']) == 0:
+                return group_details
+
+            item = response['Items'][0]
+            group_details['group_id'] = item['group_id']
+            group_details['group_name'] = item['group_name']
+            if include_users:
+                group_details['members'] = self.get_members_by_group(str(group_id))
+            
+            if include_events:
+                group_details['events'] = self.get_events(str(group_id), limit=10)
+
+            if include_messages:
+                mealShareMessages = MealShareMessages()
+                recent_messages = mealShareMessages.get_messages_by_group(str(group_id))
+                group_details['recent_messages'] = recent_messages
+
+        except ClientError as e:
+            print('Error getting details for group'.format(group_id))
+            print(e.response['Error'])
+
+        return group_details
 
     def get_members_by_group(self, group_id):
         """
@@ -43,7 +77,7 @@ class MealShareGroups:
 
             for i in response['Items']:
                 members_ids.append(i['user_id'])
-            
+
             # Paginate through remaining groups.
             while 'LastEvaluatedKey' in response:
                 response = self.membership_table.query(
@@ -72,7 +106,7 @@ class MealShareGroups:
             )
             for item in response['Items']:
                 group_ids.append(item['group_id'])
-            
+
             # Pagination
             while 'LastEvaluatedKey' in response:
                 response = self.membership_table.query(
@@ -140,7 +174,7 @@ class MealShareGroups:
                 if response['ResponseMetadata']['HTTPStatusCode'] == 200:
                     return True
         return False
-        
+
     def create_event(self, group_id, timestamp, location, recipe_name=None, event_name=None):
         """
         Create an event for the given group, with all its details.
@@ -150,7 +184,7 @@ class MealShareGroups:
             # set it to one week from now
             days = 7
             one_week_from_now = datetime.now() + timedelta(days)
-            timestamp = int( datetime.timestamp(one_week_from_now) )
+            timestamp = int(datetime.timestamp(one_week_from_now))
 
         # Create a default unique name
         if not event_name:
@@ -184,7 +218,7 @@ class MealShareGroups:
         try:
             response = self.events_table.query(
                 KeyConditionExpression=expression,
-                ScanIndexForward=False, # Reverse sort by timestamp
+                ScanIndexForward=False,  # Reverse sort by timestamp
                 Limit=limit
             )
             for i in response['Items']:
@@ -197,7 +231,7 @@ class MealShareGroups:
                     'event_timestamp': int(i['event_timestamp'])
                 }
                 events.append(event)
-                
+
             while 'LastEvaluatedKey' in response:
                 # Already hit the limit, no more pagination necessary
                 if len(events) >= limit:
@@ -219,23 +253,23 @@ class MealShareGroups:
                     }
                     events.append(event)
                     if len(events) >= limit:
-                        break # Break for loop
+                        break  # Break for loop
 
         except ClientError as e:
-            print('Error reading messages for group {}'.format(group_id))
+            print('Error reading events for group {}'.format(group_id))
             print(e.response['Error'])
 
         return events
-        
+
     def get_events_by_user_id(self, user_id):
         """
         Get all the upcoming events for the user.
         """
-        
+
         # Find all the groups they belong to.
         group_ids = self.get_groups_by_user_id(user_id)
         events = []
-        
+
         # Gather all the events from each group
         for group_id in group_ids:
             group_events = self.get_events(group_id, 100)

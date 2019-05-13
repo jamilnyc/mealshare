@@ -1,4 +1,4 @@
-import requests
+from botocore.vendored import requests
 import json
 import time
 
@@ -14,6 +14,9 @@ class MealShareRecipes:
         return endpoint
 
     def make_query(self, method, params):
+        print('Search Method: {}'.format(method))
+        print('Search Params: ')
+        print(params)
         endpoint = self.get_search_endpoint()
         response = None
         if method == 'get':
@@ -49,6 +52,9 @@ class MealShareRecipes:
 
     def search_vegan(self, limit=5):
         return self.search_by_flag('vegan', limit)
+        
+    def search_vegetarian(self, limit=5):
+        return self.search_by_flag('vegetarian', limit)
 
     def get_random_recipes(self, field_name=None, limit=5):
         random_seed = str(time.time())

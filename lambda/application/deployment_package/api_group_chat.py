@@ -105,11 +105,12 @@ class GroupChatApi:
         
         # Attempt to add the message to the group chat
         message = body['message']
-        success = self.mealShareMessages.add_message_to_group(group_id, user_id, message)
-        if success:
+        item = self.mealShareMessages.add_message_to_group(group_id, user_id, message)
+        if item:
             return {
                 'statusCode': 200,
-                'statusMessage': 'Message added to group {} by user {}'.format(group_id, user_id)
+                'statusMessage': 'Message added to group {} by user {}'.format(group_id, user_id),
+                'message': item
             }
         else:
             return {
